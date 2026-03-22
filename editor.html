@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio Editor — Douglas Tran</title>
+  <style>
+    /* ==============================  BASE  */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0d; --bg-alt: #141414; --surface: #1a1a1a;
+      --border: #2a2a2a; --accent: #e8c14a; --accent-dim: #c9a93a;
+      --text: #f0f0f0; --text-muted: #888; --radius: 8px; --max-w: 1000px;
+      --edit-ring: rgba(232,193,74,0.6);
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.7; font-size: 16px; padding-top: 60px; }
+    a { color: var(--accent); text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ==============================  TOOLBAR  */
+    #toolbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      background: #1a1a1a; border-bottom: 2px solid var(--accent);
+      display: flex; align-items: center; gap: 1rem; padding: 0 1.5rem; height: 60px;
+      font-size: 0.85rem;
+    }
+    #toolbar .t-logo { font-weight: 800; color: var(--accent); font-size: 1rem; margin-right: 0.5rem; }
+    #toolbar .t-sep { color: #444; }
+    .t-btn {
+      padding: 0.4rem 1rem; border-radius: 6px; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; border: 1.5px solid var(--border); background: var(--surface);
+      color: var(--text); transition: all 0.15s;
+    }
+    .t-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .t-btn.primary { background: var(--accent); color: #0d0d0d; border-color: var(--accent); }
+    .t-btn.primary:hover { background: var(--accent-dim); }
+    .t-hint { color: var(--text-muted); font-size: 0.78rem; margin-left: auto; }
+    #edit-badge {
+      background: #2a4a2a; color: #6fcf6f; border: 1px solid #3a6a3a;
+      padding: 0.2rem 0.7rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700;
+      display: none;
+    }
+
+    /* ==============================  NAV  */
+    nav {
+      position: sticky; top: 60px; z-index: 100;
+      background: rgba(13,13,13,0.95); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 56px;
+    }
+    .nav-name { font-weight: 700; color: var(--accent); }
+    nav ul { display: flex; gap: 2rem; }
+    nav ul a { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* ==============================  HERO  */
+    .hero {
+      min-height: 90vh; display: flex; align-items: center; justify-content: center;
+      padding: 4rem 2rem; text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(232,193,74,0.08) 0%, transparent 70%), var(--bg);
+    }
+    .hero-content { max-width: 640px; }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .hero-sub { color: var(--accent); font-size: 1rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1.25rem; }
+    .hero-desc { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 2rem; line-height: 1.8; }
+    .hero-links { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 0.6rem 1.4rem; border-radius: var(--radius); font-size: 0.9rem; font-weight: 600; background: var(--accent); color: #0d0d0d; }
+    .btn-outline { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+
+    /* ==============================  SECTIONS  */
+    .section { padding: 5rem 2rem; }
+    .section-alt { background: var(--bg-alt); }
+    .container { max-width: var(--max-w); margin: 0 auto; }
+    .section h2 { font-size: 1.75rem; font-weight: 700; margin-bottom: 1.5rem; position: relative; padding-bottom: 0.75rem; }
+    .section h2::after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 3px; background: var(--accent); border-radius: 2px; }
+    .section p { color: var(--text-muted); max-width: 680px; margin-bottom: 1rem; }
+
+    /* ==============================  SKILLS  */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-top: 1rem; }
+    .skill-group h3 { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .skill-group ul li { color: var(--text-muted); font-size: 0.95rem; padding: 0.25rem 0; border-bottom: 1px solid var(--border); }
+    .skill-group ul li:last-child { border-bottom: none; }
+
+    /* ==============================  PROJECTS  */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; transition: border-color 0.2s; }
+    .card:hover { border-color: var(--accent); }
+    .card-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text); }
+    .card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.6; }
+    .card-link { font-size: 0.85rem; font-weight: 600; color: var(--accent); }
+
+    /* ==============================  CONTACT  */
+    .contact-container { text-align: center; }
+    .contact-container h2::after { left: 50%; transform: translateX(-50%); }
+    .contact-container p { margin: 0 auto 1.5rem; }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; justify-content: center; align-items: center; font-size: 0.95rem; }
+    .contact-links span { color: var(--border); }
+    .contact-links a { color: var(--text-muted); }
+
+    /* ==============================  FOOTER  */
+    footer { background: var(--bg); border-top: 1px solid var(--border); text-align: center; padding: 1.5rem; font-size: 0.8rem; color: var(--text-muted); }
+
+    /* ==============================  IMAGE BLOCKS  */
+    .img-block {
+      width: 100%; aspect-ratio: 16/9; background: var(--surface);
+      border: 2px dashed var(--border); border-radius: var(--radius);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: var(--text-muted); font-size: 0.85rem; gap: 0.5rem;
+      margin: 1.5rem 0; overflow: hidden; position: relative;
+    }
+    .img-block img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+    .img-block .img-label { position: relative; z-index: 1; pointer-events: none; }
+
+    /* ==============================  EDIT MODE  */
+    body.edit-mode [contenteditable] {
+      outline: none;
+      border-radius: 3px;
+      box-shadow: 0 0 0 2px var(--edit-ring);
+      cursor: text;
+      min-width: 20px;
+      min-height: 1em;
+    }
+    body.edit-mode [contenteditable]:focus {
+      box-shadow: 0 0 0 2px var(--accent);
+      background: rgba(232,193,74,0.05);
+    }
+    body.edit-mode .img-block {
+      cursor: pointer;
+      border-color: var(--accent);
+    }
+    body.edit-mode .img-block:hover {
+      background: rgba(232,193,74,0.07);
+    }
+    body.edit-mode .img-block .img-overlay {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.35rem;
+      background: rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.2s; z-index: 2;
+      color: var(--accent); font-size: 0.85rem; font-weight: 600;
+    }
+    body.edit-mode .img-block:hover .img-overlay { opacity: 1; }
+
+    /* Skill item add/remove */
+    body.edit-mode .skill-group ul li {
+      position: relative; padding-right: 1.5rem;
+    }
+    body.edit-mode .skill-group ul li .remove-item {
+      display: inline-block; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+      color: #c0392b; cursor: pointer; font-size: 1rem; line-height: 1;
+      padding: 0 4px; border-radius: 3px;
+    }
+    body.edit-mode .skill-group ul li .remove-item:hover { background: rgba(192,57,43,0.2); }
+    .add-item-btn {
+      display: none; margin-top: 0.5rem; font-size: 0.78rem; color: var(--accent);
+      cursor: pointer; background: none; border: 1px dashed var(--accent);
+      border-radius: 4px; padding: 0.25rem 0.6rem; width: 100%;
+    }
+    body.edit-mode .add-item-btn { display: block; }
+
+    /* Section visibility toggle */
+    .section-toggle {
+      display: none; position: absolute; right: 1rem; top: 1rem;
+      font-size: 0.75rem; font-weight: 600; padding: 0.2rem 0.6rem;
+      border-radius: 4px; cursor: pointer; border: 1px solid #c0392b;
+      color: #c0392b; background: transparent;
+    }
+    body.edit-mode .section-toggle { display: inline-block; }
+    .section, .hero { position: relative; }
+
+    /* hidden section overlay */
+    .section.hidden-section, .hero.hidden-section {
+      opacity: 0.3; outline: 2px dashed #c0392b;
+    }
+
+    /* ==============================  TOAST  */
+    #toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      background: var(--surface); border: 1px solid var(--accent); color: var(--text);
+      padding: 0.6rem 1.4rem; border-radius: 6px; font-size: 0.85rem;
+      opacity: 0; transition: opacity 0.3s; z-index: 9999; pointer-events: none;
+    }
+    #toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<!-- TOOLBAR -->
+<div id="toolbar">
+  <span class="t-logo">Portfolio Editor</span>
+  <span class="t-sep">|</span>
+  <button class="t-btn" id="toggle-edit-btn" onclick="toggleEditMode()">Enable Editing</button>
+  <span id="edit-badge">EDIT MODE ON</span>
+  <button class="t-btn" onclick="saveToStorage()">Save Draft</button>
+  <button class="t-btn primary" onclick="exportHTML()">Export → index.html</button>
+  <span class="t-hint" id="toolbar-hint">Click "Enable Editing" to start</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-name" contenteditable="false" data-key="nav-name">Douglas Tran</span>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <button class="section-toggle" onclick="toggleSection(this)">Hide Section</button>
+  <div class="hero-content">
+    <h1 contenteditable="false" data-key="hero-name">Douglas Tran</h1>
+    <p class="hero-sub" contenteditable="false" data-key="hero-sub">IT Support &amp; AI Automation &nbsp;·&nbsp; Dallas, TX</p>
+    <p class="hero-desc" contenteditable="false" data-key="hero-desc">
+      Entry-level IT professional with hands-on experience in ERP systems,
+      AI workflow automation, and design. University of Iowa graduate
+      seeking help desk and desktop support roles.
+    </p>
+    <div class="hero-links">
+      <a href="#" class="btn" contenteditable="false" data-key="btn-email">Email Me</a>
+      <a href="#" class="btn btn-outline" contenteditable="false" data-key="btn-linkedin">LinkedIn</a>
+      <a href="#" class="btn btn-outline" contenteditable="false" data-key="btn-resume">Resume</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <button class="section-toggle" onclick="toggleSection(this)">Hide Section</button>
+  <div class="container">
+    <h2 contenteditable="false" data-key="about-title">About Me</h2>
+    <p contenteditable="false" data-key="about-p1">
+      I graduated from the University of Iowa with a BA in Interdepartmental Studies
+      (Business Track: Technology &amp; Inquiry). I've worked extensively with
+      Microsoft Dynamics NAV for ERP operations, built AI automation workflows using
+      MCP servers and Python scripting, and have a strong design background using
+      Adobe Creative Suite, Canva, and Penpot.
+    </p>
+    <p contenteditable="false" data-key="about-p2">
+      I'm currently relocating to the Dallas–Fort Worth area (Carrollton) and am
+      actively pursuing entry-level IT support, help desk, and desktop support roles.
+      I thrive at the intersection of technical problem-solving and clear communication.
+    </p>
+    <div class="img-block" data-key="about-img" onclick="pickImage(this)">
+      <div class="img-overlay">📷 Click to upload image</div>
+      <span class="img-label">Click to add an image (optional)</span>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="section section-alt">
+  <button class="section-toggle" onclick="toggleSection(this)">Hide Section</button>
+  <div class="container">
+    <h2 contenteditable="false" data-key="skills-title">Skills</h2>
+    <div class="skills-grid">
+
+      <div class="skill-group">
+        <h3 contenteditable="false" data-key="skill-g1-title">IT &amp; Support</h3>
+        <ul id="skill-list-1">
+          <li><span contenteditable="false">Help Desk / Desktop Support</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span></li>
+          <li><span contenteditable="false">Microsoft Dynamics NAV (ERP)</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span></li>
+          <li><span contenteditable="false">Windows OS troubleshooting</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span></li>
+          <li><span contenteditable="false">Microsoft 365 (Teams, SharePoint, Outlook)</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span></li>
+          <li><span contenteditable="false">Hardware setup &amp; configuration</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span></li>
+          <li><span contenteditable="false">IT Asset Management</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span></li>
+        </ul>
+        <button class="add-item-btn" onclick="addItem('skill-list-1')">+ Add skill</button>
+      </div>
+
+      <div class="skill-group">
+        <h3 contenteditable="false" data-key="skill-g2-title">AI &amp; Automation</h3>
+        <ul id="skill-list-2">
+          <li><span contenteditable="false">MCP Server configuration</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span></li>
+          <li><span contenteditable="false">AI workflow automation</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span></li>
+          <li><span contenteditable="false">Python scripting</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span></li>
+          <li><span contenteditable="false">Prompt engineering</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span></li>
+          <li><span contenteditable="false">Agent.md / Claude API</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span></li>
+        </ul>
+        <button class="add-item-btn" onclick="addItem('skill-list-2')">+ Add skill</button>
+      </div>
+
+      <div class="skill-group">
+        <h3 contenteditable="false" data-key="skill-g3-title">Design &amp; Tools</h3>
+        <ul id="skill-list-3">
+          <li><span contenteditable="false">Adobe Creative Suite</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span></li>
+          <li><span contenteditable="false">Canva</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span></li>
+          <li><span contenteditable="false">Penpot (UI/UX prototyping)</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span></li>
+          <li><span contenteditable="false">HTML / CSS</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span></li>
+          <li><span contenteditable="false">Git &amp; GitHub</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span></li>
+          <li><span contenteditable="false">VS Code</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span></li>
+        </ul>
+        <button class="add-item-btn" onclick="addItem('skill-list-3')">+ Add skill</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section">
+  <button class="section-toggle" onclick="toggleSection(this)">Hide Section</button>
+  <div class="container">
+    <h2 contenteditable="false" data-key="proj-title">Projects</h2>
+    <div class="projects-grid">
+
+      <div class="card">
+        <div class="img-block" style="aspect-ratio:4/3" data-key="proj1-img" onclick="pickImage(this)">
+          <div class="img-overlay">📷 Click to upload image</div>
+          <span class="img-label">Project thumbnail</span>
+        </div>
+        <div class="card-label" contenteditable="false" data-key="proj1-label">Branding</div>
+        <h3 contenteditable="false" data-key="proj1-title">Dragon's Roast</h3>
+        <p contenteditable="false" data-key="proj1-desc">Full brand identity for a fictional Vietnamese-fusion coffee shop. Developed logo, color palette, typography, and brand guidelines using Adobe Illustrator and Penpot.</p>
+        <a href="projects/dragons-roast.html" class="card-link" contenteditable="false" data-key="proj1-link">View Case Study →</a>
+      </div>
+
+      <div class="card">
+        <div class="img-block" style="aspect-ratio:4/3" data-key="proj2-img" onclick="pickImage(this)">
+          <div class="img-overlay">📷 Click to upload image</div>
+          <span class="img-label">Project thumbnail</span>
+        </div>
+        <div class="card-label" contenteditable="false" data-key="proj2-label">Video Production</div>
+        <h3 contenteditable="false" data-key="proj2-title">VSA Tết Recap</h3>
+        <p contenteditable="false" data-key="proj2-desc">Promotional recap video for the University of Iowa Vietnamese Student Association's Tết celebration. Shot, edited, and published to YouTube.</p>
+        <a href="https://youtu.be/XBmSefmJQOY" class="card-link" contenteditable="false" data-key="proj2-link">Watch on YouTube →</a>
+      </div>
+
+      <div class="card">
+        <div class="img-block" style="aspect-ratio:4/3" data-key="proj3-img" onclick="pickImage(this)">
+          <div class="img-overlay">📷 Click to upload image</div>
+          <span class="img-label">Project thumbnail</span>
+        </div>
+        <div class="card-label" contenteditable="false" data-key="proj3-label">UX / Web Design</div>
+        <h3 contenteditable="false" data-key="proj3-title">Saigon's Corner</h3>
+        <p contenteditable="false" data-key="proj3-desc">Website redesign for a local Vietnamese restaurant. Created user research, wireframes, and a high-fidelity prototype in Penpot with a full case study.</p>
+        <a href="projects/saigons-corner.html" class="card-link" contenteditable="false" data-key="proj3-link">View Case Study →</a>
+      </div>
+
+      <div class="card">
+        <div class="img-block" style="aspect-ratio:4/3" data-key="proj4-img" onclick="pickImage(this)">
+          <div class="img-overlay">📷 Click to upload image</div>
+          <span class="img-label">Project thumbnail</span>
+        </div>
+        <div class="card-label" contenteditable="false" data-key="proj4-label">Print / Editorial</div>
+        <h3 contenteditable="false" data-key="proj4-title">Process Catalogue</h3>
+        <p contenteditable="false" data-key="proj4-desc">Designed and produced a 40-page catalogue for the University of Iowa School of Art, showcasing student and faculty work. Layout in Adobe InDesign.</p>
+        <a href="projects/process-catalogue.html" class="card-link" contenteditable="false" data-key="proj4-link">View Case Study →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section section-alt">
+  <button class="section-toggle" onclick="toggleSection(this)">Hide Section</button>
+  <div class="container contact-container">
+    <h2 contenteditable="false" data-key="contact-title">Get in Touch</h2>
+    <p contenteditable="false" data-key="contact-desc">I'm actively looking for IT support roles in the Dallas–Fort Worth area. Let's connect.</p>
+    <div class="contact-links">
+      <a href="mailto:DougTran1@gmail.com" contenteditable="false" data-key="contact-email">DougTran1@gmail.com</a>
+      <span>·</span>
+      <a href="tel:3195306556" contenteditable="false" data-key="contact-phone">(319) 530-6556</a>
+      <span>·</span>
+      <a href="https://linkedin.com/in/douglastran" target="_blank" contenteditable="false" data-key="contact-linkedin">LinkedIn</a>
+      <span>·</span>
+      <a href="https://github.com/dougtran1" target="_blank" contenteditable="false" data-key="contact-github">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p contenteditable="false" data-key="footer-text">© 2024 Douglas Tran &nbsp;·&nbsp; Built with HTML &amp; CSS on GitHub Pages</p>
+</footer>
+
+<!-- Hidden file input for image uploads -->
+<input type="file" id="img-input" accept="image/*" style="display:none" />
+<div id="toast"></div>
+
+<script>
+  let editMode = false;
+  let currentImgBlock = null;
+  const STORAGE_KEY = 'portfolio_editor_draft';
+
+  // ── Toggle edit mode ──────────────────────────────────────────────
+  function toggleEditMode() {
+    editMode = !editMode;
+    document.body.classList.toggle('edit-mode', editMode);
+    const btn = document.getElementById('toggle-edit-btn');
+    const badge = document.getElementById('edit-badge');
+    const hint = document.getElementById('toolbar-hint');
+    if (editMode) {
+      btn.textContent = 'Disable Editing';
+      btn.classList.add('primary');
+      badge.style.display = 'inline-block';
+      hint.textContent = 'Click any text to edit · Click grey boxes to upload images · Save Draft often';
+      // enable contenteditable on all editable elements
+      document.querySelectorAll('[data-key]').forEach(el => {
+        if (!el.classList.contains('img-block')) el.setAttribute('contenteditable', 'true');
+      });
+    } else {
+      btn.textContent = 'Enable Editing';
+      btn.classList.remove('primary');
+      badge.style.display = 'none';
+      hint.textContent = 'Click "Enable Editing" to start';
+      document.querySelectorAll('[contenteditable]').forEach(el => el.setAttribute('contenteditable', 'false'));
+    }
+  }
+
+  // ── Image upload ──────────────────────────────────────────────────
+  function pickImage(block) {
+    if (!editMode) return;
+    currentImgBlock = block;
+    document.getElementById('img-input').click();
+  }
+
+  document.getElementById('img-input').addEventListener('change', function() {
+    const file = this.files[0];
+    if (!file || !currentImgBlock) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      // Remove placeholder text
+      currentImgBlock.querySelector('.img-label').style.display = 'none';
+      // Set or replace background image
+      let img = currentImgBlock.querySelector('img.uploaded');
+      if (!img) {
+        img = document.createElement('img');
+        img.className = 'uploaded';
+        currentImgBlock.insertBefore(img, currentImgBlock.firstChild);
+      }
+      img.src = e.target.result;
+      // Store key for saving
+      const key = currentImgBlock.getAttribute('data-key');
+      if (key) localStorage.setItem('img_' + key, e.target.result);
+      showToast('Image uploaded!');
+    };
+    reader.readAsDataURL(file);
+    this.value = '';
+  });
+
+  // ── Skill list add/remove ─────────────────────────────────────────
+  function removeItem(btn) {
+    btn.closest('li').remove();
+  }
+
+  function addItem(listId) {
+    const ul = document.getElementById(listId);
+    const li = document.createElement('li');
+    li.innerHTML = '<span contenteditable="true">New skill</span><span class="remove-item" onclick="removeItem(this)" title="Remove">✕</span>';
+    ul.appendChild(li);
+    // focus the new item
+    const span = li.querySelector('span[contenteditable]');
+    span.focus();
+    // select all text
+    const range = document.createRange();
+    range.selectNodeContents(span);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+  }
+
+  // ── Section toggle ────────────────────────────────────────────────
+  function toggleSection(btn) {
+    const section = btn.closest('section, .hero');
+    section.classList.toggle('hidden-section');
+    btn.textContent = section.classList.contains('hidden-section') ? 'Show Section' : 'Hide Section';
+  }
+
+  // ── Save draft to localStorage ────────────────────────────────────
+  function saveToStorage() {
+    const data = {};
+    document.querySelectorAll('[data-key]').forEach(el => {
+      if (!el.classList.contains('img-block')) {
+        data[el.getAttribute('data-key')] = el.innerHTML;
+      }
+    });
+    // Save hidden sections
+    const hiddenSections = [];
+    document.querySelectorAll('.hidden-section').forEach((s, i) => {
+      hiddenSections.push(s.id || s.className);
+    });
+    data['_hiddenSections'] = hiddenSections;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    showToast('Draft saved!');
+  }
+
+  // ── Load draft from localStorage ──────────────────────────────────
+  function loadFromStorage() {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    try {
+      const data = JSON.parse(raw);
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (data[key] !== undefined && !el.classList.contains('img-block')) {
+          el.innerHTML = data[key];
+        }
+      });
+    } catch(e) {}
+    // Load images
+    document.querySelectorAll('.img-block[data-key]').forEach(block => {
+      const key = 'img_' + block.getAttribute('data-key');
+      const src = localStorage.getItem(key);
+      if (src) {
+        block.querySelector('.img-label').style.display = 'none';
+        let img = document.createElement('img');
+        img.className = 'uploaded';
+        img.src = src;
+        block.insertBefore(img, block.firstChild);
+      }
+    });
+  }
+
+  // ── Export clean index.html ───────────────────────────────────────
+  function exportHTML() {
+    // Collect all current text values
+    const texts = {};
+    document.querySelectorAll('[data-key]').forEach(el => {
+      if (!el.classList.contains('img-block')) texts[el.getAttribute('data-key')] = el.innerHTML.trim();
+    });
+
+    // Collect images
+    const images = {};
+    document.querySelectorAll('.img-block[data-key]').forEach(block => {
+      const key = block.getAttribute('data-key');
+      const img = block.querySelector('img.uploaded');
+      if (img) images[key] = img.src;
+    });
+
+    // Which sections are hidden
+    const hiddenIds = new Set();
+    document.querySelectorAll('.hidden-section').forEach(s => hiddenIds.add(s.id));
+
+    function imgTag(key, ratio) {
+      if (images[key]) {
+        return `<div style="width:100%;aspect-ratio:${ratio};margin:1.5rem 0;border-radius:8px;overflow:hidden"><img src="${images[key]}" style="width:100%;height:100%;object-fit:cover" alt=""/></div>`;
+      }
+      return '';
+    }
+
+    const aboutImg = imgTag('about-img', '16/9');
+    const p1 = imgTag('proj1-img', '4/3');
+    const p2 = imgTag('proj2-img', '4/3');
+    const p3 = imgTag('proj3-img', '4/3');
+    const p4 = imgTag('proj4-img', '4/3');
+
+    // Build skill lists from current DOM
+    function buildSkillList(listId) {
+      const ul = document.getElementById(listId);
+      if (!ul) return '';
+      return Array.from(ul.querySelectorAll('li span[contenteditable], li span:first-child'))
+        .filter(s => !s.classList.contains('remove-item'))
+        .map(s => `            <li>${s.innerText.trim()}</li>`)
+        .join('\n');
+    }
+
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>${document.querySelector('[data-key="hero-name"]').innerText.trim()} — Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav>
+    <span class="nav-name">${texts['nav-name'] || 'Douglas Tran'}</span>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+${hiddenIds.has('') ? '' : `  <section class="hero">
+    <div class="hero-content">
+      <h1>${texts['hero-name'] || ''}</h1>
+      <p class="hero-sub">${texts['hero-sub'] || ''}</p>
+      <p class="hero-desc">${texts['hero-desc'] || ''}</p>
+      <div class="hero-links">
+        <a href="mailto:${document.querySelector('[data-key="contact-email"]').innerText.trim()}" class="btn">${texts['btn-email'] || 'Email Me'}</a>
+        <a href="https://linkedin.com/in/douglastran" target="_blank" class="btn btn-outline">${texts['btn-linkedin'] || 'LinkedIn'}</a>
+        <a href="resume.pdf" target="_blank" class="btn btn-outline">${texts['btn-resume'] || 'Resume'}</a>
+      </div>
+    </div>
+  </section>`}
+
+  <section id="about" class="section">
+    <div class="container">
+      <h2>${texts['about-title'] || 'About Me'}</h2>
+      <p>${texts['about-p1'] || ''}</p>
+      <p>${texts['about-p2'] || ''}</p>
+      ${aboutImg}
+    </div>
+  </section>
+
+  <section id="skills" class="section section-alt">
+    <div class="container">
+      <h2>${texts['skills-title'] || 'Skills'}</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>${texts['skill-g1-title'] || ''}</h3>
+          <ul>
+${buildSkillList('skill-list-1')}
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>${texts['skill-g2-title'] || ''}</h3>
+          <ul>
+${buildSkillList('skill-list-2')}
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>${texts['skill-g3-title'] || ''}</h3>
+          <ul>
+${buildSkillList('skill-list-3')}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="section">
+    <div class="container">
+      <h2>${texts['proj-title'] || 'Projects'}</h2>
+      <div class="projects-grid">
+
+        <div class="card">
+          ${p1}
+          <div class="card-label">${texts['proj1-label'] || ''}</div>
+          <h3>${texts['proj1-title'] || ''}</h3>
+          <p>${texts['proj1-desc'] || ''}</p>
+          <a href="projects/dragons-roast.html" class="card-link">${texts['proj1-link'] || 'View Case Study →'}</a>
+        </div>
+
+        <div class="card">
+          ${p2}
+          <div class="card-label">${texts['proj2-label'] || ''}</div>
+          <h3>${texts['proj2-title'] || ''}</h3>
+          <p>${texts['proj2-desc'] || ''}</p>
+          <a href="https://youtu.be/XBmSefmJQOY" class="card-link">${texts['proj2-link'] || 'Watch on YouTube →'}</a>
+        </div>
+
+        <div class="card">
+          ${p3}
+          <div class="card-label">${texts['proj3-label'] || ''}</div>
+          <h3>${texts['proj3-title'] || ''}</h3>
+          <p>${texts['proj3-desc'] || ''}</p>
+          <a href="projects/saigons-corner.html" class="card-link">${texts['proj3-link'] || 'View Case Study →'}</a>
+        </div>
+
+        <div class="card">
+          ${p4}
+          <div class="card-label">${texts['proj4-label'] || ''}</div>
+          <h3>${texts['proj4-title'] || ''}</h3>
+          <p>${texts['proj4-desc'] || ''}</p>
+          <a href="projects/process-catalogue.html" class="card-link">${texts['proj4-link'] || 'View Case Study →'}</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section section-alt">
+    <div class="container contact-container">
+      <h2>${texts['contact-title'] || 'Get in Touch'}</h2>
+      <p>${texts['contact-desc'] || ''}</p>
+      <div class="contact-links">
+        <a href="mailto:${document.querySelector('[data-key="contact-email"]').innerText.trim()}">${texts['contact-email'] || ''}</a>
+        <span>·</span>
+        <a href="tel:${document.querySelector('[data-key="contact-phone"]').innerText.replace(/\D/g,'')}">${texts['contact-phone'] || ''}</a>
+        <span>·</span>
+        <a href="https://linkedin.com/in/douglastran" target="_blank">${texts['contact-linkedin'] || 'LinkedIn'}</a>
+        <span>·</span>
+        <a href="https://github.com/dougtran1" target="_blank">${texts['contact-github'] || 'GitHub'}</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>${texts['footer-text'] || ''}</p>
+  </footer>
+
+</body>
+</html>`;
+
+    const blob = new Blob([html], { type: 'text/html' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'index.html';
+    a.click();
+    showToast('index.html downloaded! Replace the file in your repo folder.');
+  }
+
+  // ── Toast notification ────────────────────────────────────────────
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // ── On load ───────────────────────────────────────────────────────
+  loadFromStorage();
+</script>
+</body>
+</html>
