@@ -7,23 +7,25 @@
   <link rel="stylesheet" href="../style.css" />
   <style>
     .case-study { max-width: 720px; margin: 0 auto; padding: 4rem 2rem; }
-    .back-link { display: inline-block; margin-bottom: 2rem; font-size: 0.9rem; color: var(--text-muted); }
+    .back-link { display: inline-block; margin-bottom: 2rem; font-size: 0.85rem; color: var(--text-muted); letter-spacing: -0.01em; transition: color 0.2s; }
     .back-link:hover { color: var(--accent); text-decoration: none; }
-    .project-label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
-    .case-study h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; margin-bottom: 1.5rem; }
+    .project-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .case-study h1 { font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.5rem; }
     .meta { display: flex; flex-wrap: wrap; gap: 2rem; padding: 1.5rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 2.5rem; }
-    .meta-item label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.25rem; }
-    .meta-item span { font-size: 0.95rem; font-weight: 500; }
-    .case-study h2 { font-size: 1.2rem; font-weight: 700; margin: 2rem 0 0.75rem; color: var(--accent); }
-    .case-study p { color: var(--text-muted); margin-bottom: 1rem; }
+    .meta-item label { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 0.3rem; }
+    .meta-item span { font-size: 0.95rem; font-weight: 500; letter-spacing: -0.01em; }
+    .case-study h2 { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; margin: 2.5rem 0 0.6rem; color: var(--accent); }
+    .case-study p { color: var(--text-muted); margin-bottom: 1rem; font-size: 1rem; line-height: 1.75; letter-spacing: -0.01em; }
     .case-study ul { color: var(--text-muted); padding-left: 1.25rem; list-style: disc; margin-bottom: 1rem; }
-    .case-study ul li { margin-bottom: 0.4rem; }
-    .placeholder-img { width: 100%; aspect-ratio: 16/9; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.9rem; margin: 2rem 0; }
+    .case-study ul li { margin-bottom: 0.5rem; line-height: 1.6; letter-spacing: -0.01em; }
+    .placeholder-img { width: 100%; aspect-ratio: 16/9; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem; margin: 2rem 0; letter-spacing: -0.01em; }
     .color-swatches { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.5rem 0; }
     .swatch { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
-    .swatch-block { width: 60px; height: 60px; border-radius: 8px; border: 1px solid var(--border); }
-    .swatch span { font-size: 0.7rem; color: var(--text-muted); text-align: center; max-width: 70px; }
-    blockquote { border-left: 3px solid var(--accent); margin: 1.5rem 0; padding: 0.5rem 0 0.5rem 1.25rem; font-style: italic; color: var(--text-muted); }
+    .swatch-block { width: 60px; height: 60px; border-radius: 10px; border: 1px solid var(--border); }
+    .swatch span { font-size: 0.68rem; color: var(--text-muted); text-align: center; max-width: 72px; line-height: 1.4; }
+    blockquote { border-left: 2px solid var(--accent); margin: 1.25rem 0; padding: 0.5rem 0 0.5rem 1.25rem; font-style: italic; color: var(--text-muted); font-size: 0.95rem; letter-spacing: -0.01em; }
+    [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    [data-reveal].visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
@@ -38,8 +40,8 @@
   <div class="case-study">
     <a href="../index.html#projects" class="back-link">← Back to Projects</a>
 
-    <div class="project-label">Branding</div>
-    <h1>Dragon's Roast</h1>
+    <div class="project-label" data-reveal>Branding</div>
+    <h1 data-reveal>Dragon's Roast</h1>
 
     <div class="meta">
       <div class="meta-item">
@@ -162,6 +164,15 @@
     </p>
 
   </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+  </script>
 
   <footer>
     <p>© 2024 Douglas Tran &nbsp;·&nbsp; Built with HTML &amp; CSS on GitHub Pages</p>
