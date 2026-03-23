@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DAW Studio — Douglas Tran</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .case-study { max-width: 720px; margin: 0 auto; padding: 4rem 2rem; }
+    .back-link { display: inline-block; margin-bottom: 2rem; font-size: 0.85rem; color: var(--text-muted); letter-spacing: -0.01em; transition: color 0.2s; }
+    .back-link:hover { color: var(--accent); text-decoration: none; }
+    .project-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .case-study h1 { font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.5rem; }
+    .meta { display: flex; flex-wrap: wrap; gap: 2rem; padding: 1.5rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 2.5rem; }
+    .meta-item label { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 0.3rem; }
+    .meta-item span { font-size: 0.95rem; font-weight: 500; letter-spacing: -0.01em; }
+    .case-study h2 { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; margin: 2.5rem 0 0.6rem; color: var(--accent); }
+    .case-study p { color: var(--text-muted); margin-bottom: 1rem; font-size: 1rem; line-height: 1.75; letter-spacing: -0.01em; }
+    .case-study ul { color: var(--text-muted); padding-left: 1.25rem; list-style: disc; margin-bottom: 1rem; }
+    .case-study ul li { margin-bottom: 0.5rem; line-height: 1.6; letter-spacing: -0.01em; }
+    .placeholder-img { width: 100%; aspect-ratio: 16/9; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem; margin: 2rem 0; letter-spacing: -0.01em; }
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 1.5rem; }
+    .tech-tag { font-size: 0.75rem; font-weight: 500; padding: 0.3rem 0.7rem; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); letter-spacing: -0.01em; }
+    .color-swatches { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.5rem 0; }
+    .swatch { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+    .swatch-block { width: 60px; height: 60px; border-radius: 10px; border: 1px solid var(--border); }
+    .swatch span { font-size: 0.68rem; color: var(--text-muted); text-align: center; max-width: 72px; line-height: 1.4; }
+    [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    [data-reveal].visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-name">Douglas Tran</span>
+    <ul>
+      <li><a href="../index.html#projects">&larr; All Projects</a></li>
+    </ul>
+  </nav>
+
+  <div class="case-study">
+    <a href="../index.html#projects" class="back-link">&larr; Back to Projects</a>
+
+    <div class="project-label" data-reveal>Music Production App</div>
+    <h1 data-reveal>DAW Studio</h1>
+
+    <div class="meta">
+      <div class="meta-item">
+        <label>Role</label>
+        <span>Designer &amp; Developer</span>
+      </div>
+      <div class="meta-item">
+        <label>Timeline</label>
+        <span>March 2026</span>
+      </div>
+      <div class="meta-item">
+        <label>Type</label>
+        <span>Personal Project</span>
+      </div>
+    </div>
+
+    <div class="placeholder-img" data-reveal>[ Hero image — DAW Studio interface ]</div>
+
+    <h2 data-reveal>Overview</h2>
+    <p data-reveal>
+      DAW Studio is a browser-based digital audio workstation built entirely with web technologies.
+      It provides a complete multi-track audio editing and mixing environment — import audio files,
+      record from a microphone, arrange clips on a timeline, apply effects, mix tracks, and export
+      the final result as a WAV file — all without leaving the browser.
+    </p>
+
+    <h2 data-reveal>Tech Stack</h2>
+    <div class="tech-tags" data-reveal>
+      <span class="tech-tag">React 19</span>
+      <span class="tech-tag">TypeScript</span>
+      <span class="tech-tag">Vite</span>
+      <span class="tech-tag">Tailwind CSS</span>
+      <span class="tech-tag">Zustand</span>
+      <span class="tech-tag">Web Audio API</span>
+      <span class="tech-tag">IndexedDB</span>
+    </div>
+
+    <h2 data-reveal>The Challenge</h2>
+    <p data-reveal>
+      Professional DAWs like Ableton and Logic are powerful but locked to native platforms. The goal
+      was to prove that a usable, real-time audio production environment could run entirely in the
+      browser — with proper effect processing, low-latency playback, and a responsive UI — using
+      only standard web APIs.
+    </p>
+
+    <h2 data-reveal>Key Features</h2>
+
+    <h2 data-reveal>Multi-Track Timeline</h2>
+    <p data-reveal>
+      A fully interactive timeline with waveform visualization, drag-to-move and trim-to-edit clip
+      controls, zoomable time scale, loop regions, and a precision playhead. Waveform peaks are
+      cached for smooth rendering at any zoom level.
+    </p>
+
+    <div class="placeholder-img" data-reveal>[ Screenshot — timeline with multiple tracks and waveforms ]</div>
+
+    <h2 data-reveal>Recording</h2>
+    <p data-reveal>
+      Live microphone recording is handled through an AudioWorklet processor, capturing audio in
+      real-time chunks with minimal latency. Recorded clips are placed directly onto the timeline
+      and persisted to the browser's IndexedDB storage.
+    </p>
+
+    <h2 data-reveal>Effects Processing</h2>
+    <p data-reveal>
+      Each track has its own reorderable effect chain with five built-in processors:
+    </p>
+    <ul data-reveal>
+      <li><strong>Reverb</strong> — ConvolverNode with a procedurally generated impulse response</li>
+      <li><strong>Delay</strong> — feedback delay with configurable time and mix</li>
+      <li><strong>EQ</strong> — 3-band parametric equalizer (low shelf, peaking mid, high shelf)</li>
+      <li><strong>Compressor</strong> — threshold, ratio, attack, and release controls</li>
+      <li><strong>Distortion</strong> — waveshaper with dry/wet blending</li>
+    </ul>
+    <p data-reveal>
+      Every effect supports bypass mode and parameter adjustment in real time. The audio graph
+      dynamically rewires when effects are added, removed, or reordered.
+    </p>
+
+    <div class="placeholder-img" data-reveal>[ Screenshot — effects rack with parameters ]</div>
+
+    <h2 data-reveal>Mixer</h2>
+    <p data-reveal>
+      A channel-strip mixer provides per-track volume faders, stereo pan knobs, mute/solo/arm
+      controls, and real-time level metering. A master bus with its own gain and meter sits at the
+      end of the signal chain.
+    </p>
+
+    <div class="placeholder-img" data-reveal>[ Screenshot — mixer panel with channel strips ]</div>
+
+    <h2 data-reveal>Architecture</h2>
+    <p data-reveal>
+      State management is split across three Zustand stores — project data, transport state, and UI
+      preferences — kept in sync with the Web Audio graph through dedicated React hooks. Each track
+      owns its own audio node tree (input gain, effect chain, panner, volume, analyser), and the
+      transport handles clip scheduling with sample-accurate timing via the Web Audio API clock.
+    </p>
+    <p data-reveal>
+      Projects are serialized to IndexedDB with audio blobs stored separately, enabling save/load
+      without a server. Final mixdowns are rendered offline with OfflineAudioContext and encoded to
+      WAV for export.
+    </p>
+
+    <h2 data-reveal>Design</h2>
+    <p data-reveal>
+      The interface follows a dark theme common in professional audio software, using a deep navy
+      background with a red accent color for active elements and meters. The layout is built to feel
+      familiar to anyone who has used a traditional DAW — track list on the left, timeline in the
+      center, mixer and effects panels below.
+    </p>
+
+    <div class="color-swatches" data-reveal>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#1a1a2e;"></div>
+        <span>Background<br>#1A1A2E</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#16213e;"></div>
+        <span>Surface<br>#16213E</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#e94560;"></div>
+        <span>Accent<br>#E94560</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#0f3460;"></div>
+        <span>Primary<br>#0F3460</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#e0e0e0;"></div>
+        <span>Text<br>#E0E0E0</span>
+      </div>
+    </div>
+
+    <h2 data-reveal>Reflection</h2>
+    <p data-reveal>
+      Building a DAW in the browser pushed the Web Audio API to its limits — especially around
+      real-time effect graph rewiring and sample-accurate clip scheduling. The biggest takeaway was
+      how far browser APIs have come: between AudioWorklet for recording, OfflineAudioContext for
+      export, and IndexedDB for persistence, the entire pipeline runs client-side with no backend.
+      Future improvements could include MIDI support, automation lanes, and a plugin system for
+      custom effects.
+    </p>
+
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+  </script>
+
+  <footer>
+    <p>&copy; 2024 Douglas Tran &nbsp;&middot;&nbsp; Built with HTML &amp; CSS on GitHub Pages</p>
+  </footer>
+
+</body>
+</html>
