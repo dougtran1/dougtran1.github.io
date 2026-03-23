@@ -8,14 +8,22 @@
     /* ==============================  BASE  */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #0d0d0d; --bg-alt: #141414; --surface: #1a1a1a;
-      --border: #2a2a2a; --accent: #e8c14a; --accent-dim: #c9a93a;
-      --text: #f0f0f0; --text-muted: #888; --radius: 8px; --max-w: 1000px;
-      --edit-ring: rgba(232,193,74,0.6);
+      --bg: #000000; --bg-alt: #1d1d1f; --surface: #2d2d2f;
+      --border: #3a3a3c; --accent: #0071e3; --accent-dim: #0077ed;
+      --text: #f5f5f7; --text-muted: #86868b;
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      --radius: 18px; --radius-sm: 12px; --max-w: 1000px;
+      --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --edit-ring: rgba(0,113,227,0.6);
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.7; font-size: 16px; padding-top: 60px; }
+    body {
+      background: var(--bg); color: var(--text); font-family: var(--font);
+      line-height: 1.6; font-size: 17px; padding-top: 60px;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
     a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
     ul { list-style: none; }
 
     /* ==============================  TOOLBAR  */
@@ -23,116 +31,136 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
       background: #1a1a1a; border-bottom: 2px solid var(--accent);
       display: flex; align-items: center; gap: 1rem; padding: 0 1.5rem; height: 60px;
-      font-size: 0.85rem;
+      font-size: 0.85rem; font-family: var(--font);
     }
-    #toolbar .t-logo { font-weight: 800; color: var(--accent); font-size: 1rem; margin-right: 0.5rem; }
+    #toolbar .t-logo { font-weight: 600; color: var(--accent); font-size: 0.95rem; margin-right: 0.5rem; letter-spacing: -0.01em; }
     #toolbar .t-sep { color: #444; }
     .t-btn {
-      padding: 0.4rem 1rem; border-radius: 6px; font-size: 0.82rem; font-weight: 600;
-      cursor: pointer; border: 1.5px solid var(--border); background: var(--surface);
-      color: var(--text); transition: all 0.15s;
+      padding: 0.4rem 1rem; border-radius: 980px; font-size: 0.82rem; font-weight: 500;
+      cursor: pointer; border: 1px solid var(--border); background: var(--surface);
+      color: var(--text); transition: all 0.2s; letter-spacing: -0.01em;
     }
     .t-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .t-btn.primary { background: var(--accent); color: #0d0d0d; border-color: var(--accent); }
+    .t-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
     .t-btn.primary:hover { background: var(--accent-dim); }
     .t-hint { color: var(--text-muted); font-size: 0.78rem; margin-left: auto; }
     #edit-badge {
-      background: #2a4a2a; color: #6fcf6f; border: 1px solid #3a6a3a;
-      padding: 0.2rem 0.7rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700;
-      display: none;
+      background: #1a3a1a; color: #4caf50; border: 1px solid #2d6a2d;
+      padding: 0.2rem 0.7rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+      display: none; letter-spacing: 0.02em;
     }
 
     /* ==============================  NAV  */
     nav {
       position: sticky; top: 60px; z-index: 100;
-      background: rgba(13,13,13,0.95); backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2rem; height: 56px;
+      padding: 0 2rem; height: 44px;
     }
-    .nav-name { font-weight: 700; color: var(--accent); }
+    .nav-name { font-weight: 500; font-size: 0.9rem; letter-spacing: -0.01em; color: var(--text); }
     nav ul { display: flex; gap: 2rem; }
-    nav ul a { color: var(--text-muted); font-size: 0.9rem; }
+    nav ul a { color: var(--text-muted); font-size: 0.82rem; letter-spacing: -0.01em; transition: color 0.2s; }
+    nav ul a:hover { color: var(--text); text-decoration: none; }
 
     /* ==============================  HERO  */
     .hero {
-      min-height: 90vh; display: flex; align-items: center; justify-content: center;
-      padding: 4rem 2rem; text-align: center;
-      background: radial-gradient(ellipse at 50% 0%, rgba(232,193,74,0.08) 0%, transparent 70%), var(--bg);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 6rem 2rem; text-align: center;
+      background: var(--bg); position: relative; overflow: hidden;
     }
-    .hero-content { max-width: 640px; }
-    .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
-    .hero-sub { color: var(--accent); font-size: 1rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1.25rem; }
-    .hero-desc { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 2rem; line-height: 1.8; }
-    .hero-links { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
-    .btn { display: inline-block; padding: 0.6rem 1.4rem; border-radius: var(--radius); font-size: 0.9rem; font-weight: 600; background: var(--accent); color: #0d0d0d; }
-    .btn-outline { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+    .hero::before {
+      content: ''; position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(ellipse, rgba(0,113,227,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content { max-width: 700px; position: relative; }
+    .hero h1 { font-size: clamp(3rem, 9vw, 6rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 0.6rem; color: var(--text); }
+    .hero-sub { color: var(--accent); font-size: 1.1rem; font-weight: 400; letter-spacing: -0.01em; margin-bottom: 1.25rem; }
+    .hero-desc { color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; margin-bottom: 2.5rem; max-width: 540px; margin-left: auto; margin-right: auto; }
+    .hero-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ==============================  BUTTONS  */
+    .btn {
+      display: inline-block; padding: 0.65rem 1.5rem; border-radius: 980px;
+      font-size: 0.9rem; font-weight: 400; letter-spacing: -0.01em;
+      background: var(--accent); color: #fff;
+      transition: background 0.25s, transform 0.2s; white-space: nowrap;
+    }
+    .btn:hover { background: var(--accent-dim); text-decoration: none; transform: scale(1.02); }
+    .btn-outline { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    .btn-outline:hover { background: rgba(0,113,227,0.08); }
 
     /* ==============================  SECTIONS  */
-    .section { padding: 5rem 2rem; }
+    .section { padding: 6rem 2rem; }
     .section-alt { background: var(--bg-alt); }
     .container { max-width: var(--max-w); margin: 0 auto; }
-    .section h2 { font-size: 1.75rem; font-weight: 700; margin-bottom: 1.5rem; position: relative; padding-bottom: 0.75rem; }
-    .section h2::after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 3px; background: var(--accent); border-radius: 2px; }
-    .section p { color: var(--text-muted); max-width: 680px; margin-bottom: 1rem; }
+    .section h2 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 1.75rem; color: var(--text); line-height: 1.1; }
+    .section p { color: var(--text-muted); max-width: 680px; margin-bottom: 1rem; font-size: 1.05rem; line-height: 1.75; }
 
     /* ==============================  SKILLS  */
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-top: 1rem; }
-    .skill-group h3 { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
-    .skill-group ul li { color: var(--text-muted); font-size: 0.95rem; padding: 0.25rem 0; border-bottom: 1px solid var(--border); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 0.5rem; }
+    .skill-group {
+      background: var(--surface); border-radius: var(--radius-sm); padding: 1.5rem;
+      border: 1px solid var(--border); transition: transform var(--transition), border-color 0.3s;
+    }
+    .skill-group:hover { transform: translateY(-4px); border-color: rgba(0,113,227,0.4); }
+    .skill-group h3 { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .skill-group ul li { color: var(--text-muted); font-size: 0.93rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border); letter-spacing: -0.01em; }
     .skill-group ul li:last-child { border-bottom: none; }
 
     /* ==============================  PROJECTS  */
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; transition: border-color 0.2s; }
-    .card:hover { border-color: var(--accent); }
-    .card-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
-    .card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text); }
-    .card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.6; }
-    .card-link { font-size: 0.85rem; font-weight: 600; color: var(--accent); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 0.5rem; }
+    .card {
+      background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 24px 60px rgba(0,0,0,0.6); border-color: rgba(255,255,255,0.1); }
+    .card-body { padding: 1.25rem 1.5rem 1.5rem; }
+    .card-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+    .card h3 { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.6rem; color: var(--text); }
+    .card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.6; }
+    .card-link { font-size: 0.85rem; font-weight: 400; color: var(--accent); letter-spacing: -0.01em; }
+    .card-link:hover { text-decoration: underline; }
 
     /* ==============================  CONTACT  */
     .contact-container { text-align: center; }
-    .contact-container h2::after { left: 50%; transform: translateX(-50%); }
-    .contact-container p { margin: 0 auto 1.5rem; }
-    .contact-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; justify-content: center; align-items: center; font-size: 0.95rem; }
+    .contact-container p { margin: 0 auto 2rem; }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; justify-content: center; align-items: center; font-size: 0.95rem; }
     .contact-links span { color: var(--border); }
-    .contact-links a { color: var(--text-muted); }
+    .contact-links a { color: var(--text-muted); letter-spacing: -0.01em; transition: color 0.2s; }
+    .contact-links a:hover { color: var(--accent); text-decoration: none; }
 
     /* ==============================  FOOTER  */
-    footer { background: var(--bg); border-top: 1px solid var(--border); text-align: center; padding: 1.5rem; font-size: 0.8rem; color: var(--text-muted); }
+    footer { background: var(--bg-alt); border-top: 1px solid var(--border); text-align: center; padding: 1.5rem; font-size: 0.78rem; letter-spacing: -0.01em; color: var(--text-muted); }
 
     /* ==============================  IMAGE BLOCKS  */
     .img-block {
       width: 100%; aspect-ratio: 16/9; background: var(--surface);
-      border: 2px dashed var(--border); border-radius: var(--radius);
+      border: 2px dashed var(--border); border-radius: 0;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       color: var(--text-muted); font-size: 0.85rem; gap: 0.5rem;
       margin: 1.5rem 0; overflow: hidden; position: relative;
     }
-    .img-block img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+    /* Inside a card, img-block fills the top like card-img */
+    .card .img-block { aspect-ratio: 4/3; margin: 0; border: none; border-radius: 0; }
+    .img-block img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .card:hover .img-block img { transform: scale(1.06); }
     .img-block .img-label { position: relative; z-index: 1; pointer-events: none; }
 
     /* ==============================  EDIT MODE  */
     body.edit-mode [contenteditable] {
-      outline: none;
-      border-radius: 3px;
-      box-shadow: 0 0 0 2px var(--edit-ring);
-      cursor: text;
-      min-width: 20px;
-      min-height: 1em;
+      outline: none; border-radius: 3px; box-shadow: 0 0 0 2px var(--edit-ring);
+      cursor: text; min-width: 20px; min-height: 1em;
     }
     body.edit-mode [contenteditable]:focus {
-      box-shadow: 0 0 0 2px var(--accent);
-      background: rgba(232,193,74,0.05);
+      box-shadow: 0 0 0 2px var(--accent); background: rgba(0,113,227,0.05);
     }
-    body.edit-mode .img-block {
-      cursor: pointer;
-      border-color: var(--accent);
-    }
-    body.edit-mode .img-block:hover {
-      background: rgba(232,193,74,0.07);
-    }
+    body.edit-mode .img-block { cursor: pointer; border-color: var(--accent); }
+    body.edit-mode .img-block:hover { background: rgba(0,113,227,0.07); }
     body.edit-mode .img-block .img-overlay {
       position: absolute; inset: 0; display: flex; flex-direction: column;
       align-items: center; justify-content: center; gap: 0.35rem;
@@ -142,19 +170,16 @@
     body.edit-mode .img-block:hover .img-overlay { opacity: 1; }
 
     /* Skill item add/remove */
-    body.edit-mode .skill-group ul li {
-      position: relative; padding-right: 1.5rem;
-    }
+    body.edit-mode .skill-group ul li { position: relative; padding-right: 1.5rem; }
     body.edit-mode .skill-group ul li .remove-item {
       display: inline-block; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
-      color: #c0392b; cursor: pointer; font-size: 1rem; line-height: 1;
-      padding: 0 4px; border-radius: 3px;
+      color: #c0392b; cursor: pointer; font-size: 1rem; line-height: 1; padding: 0 4px; border-radius: 3px;
     }
     body.edit-mode .skill-group ul li .remove-item:hover { background: rgba(192,57,43,0.2); }
     .add-item-btn {
       display: none; margin-top: 0.5rem; font-size: 0.78rem; color: var(--accent);
       cursor: pointer; background: none; border: 1px dashed var(--accent);
-      border-radius: 4px; padding: 0.25rem 0.6rem; width: 100%;
+      border-radius: 6px; padding: 0.25rem 0.6rem; width: 100%;
     }
     body.edit-mode .add-item-btn { display: block; }
 
@@ -168,19 +193,26 @@
     body.edit-mode .section-toggle { display: inline-block; }
     .section, .hero { position: relative; }
 
-    /* hidden section overlay */
-    .section.hidden-section, .hero.hidden-section {
-      opacity: 0.3; outline: 2px dashed #c0392b;
-    }
+    /* Hidden section overlay */
+    .section.hidden-section, .hero.hidden-section { opacity: 0.3; outline: 2px dashed #c0392b; }
 
     /* ==============================  TOAST  */
     #toast {
       position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
       background: var(--surface); border: 1px solid var(--accent); color: var(--text);
-      padding: 0.6rem 1.4rem; border-radius: 6px; font-size: 0.85rem;
+      padding: 0.6rem 1.4rem; border-radius: 980px; font-size: 0.85rem;
       opacity: 0; transition: opacity 0.3s; z-index: 9999; pointer-events: none;
     }
     #toast.show { opacity: 1; }
+
+    /* ==============================  RESPONSIVE  */
+    @media (max-width: 600px) {
+      nav { padding: 0 1.25rem; }
+      nav ul { gap: 1rem; }
+      .hero { min-height: 90vh; padding: 4rem 1.25rem; }
+      .section { padding: 4rem 1.25rem; }
+      .hero-links { flex-direction: column; align-items: center; }
+    }
   </style>
 </head>
 <body>
@@ -219,9 +251,9 @@
       seeking help desk and desktop support roles.
     </p>
     <div class="hero-links">
-      <a href="#" class="btn" contenteditable="false" data-key="btn-email">Email Me</a>
-      <a href="#" class="btn btn-outline" contenteditable="false" data-key="btn-linkedin">LinkedIn</a>
-      <a href="#" class="btn btn-outline" contenteditable="false" data-key="btn-resume">Resume</a>
+      <a href="mailto:DougTran1@gmail.com" class="btn" contenteditable="false" data-key="btn-email">Email Me</a>
+      <a href="https://linkedin.com/in/douglastran1" target="_blank" class="btn btn-outline" contenteditable="false" data-key="btn-linkedin">LinkedIn</a>
+      <a href="resume.pdf" target="_blank" class="btn btn-outline" contenteditable="false" data-key="btn-resume">Resume</a>
     </div>
   </div>
 </section>
@@ -307,47 +339,68 @@
     <div class="projects-grid">
 
       <div class="card">
-        <div class="img-block" style="aspect-ratio:4/3" data-key="proj1-img" onclick="pickImage(this)">
+        <div class="img-block" data-key="proj1-img" onclick="pickImage(this)">
           <div class="img-overlay">📷 Click to upload image</div>
           <span class="img-label">Project thumbnail</span>
         </div>
-        <div class="card-label" contenteditable="false" data-key="proj1-label">Branding</div>
-        <h3 contenteditable="false" data-key="proj1-title">Dragon's Roast</h3>
-        <p contenteditable="false" data-key="proj1-desc">Full brand identity for a fictional Vietnamese-fusion coffee shop. Developed logo, color palette, typography, and brand guidelines using Adobe Illustrator and Penpot.</p>
-        <a href="projects/dragons-roast.html" class="card-link" contenteditable="false" data-key="proj1-link">View Case Study →</a>
+        <div class="card-body">
+          <div class="card-label" contenteditable="false" data-key="proj1-label">Branding</div>
+          <h3 contenteditable="false" data-key="proj1-title">Dragon's Roast</h3>
+          <p contenteditable="false" data-key="proj1-desc">Fantasy-themed coffee shop branding project. Designed the full brand identity — logo, color palette, menu, and business card — from concept to final deliverable.</p>
+          <a href="projects/dragons-roast.html?eb=1" class="card-link" contenteditable="false" data-key="proj1-link">View Case Study →</a>
+        </div>
       </div>
 
       <div class="card">
-        <div class="img-block" style="aspect-ratio:4/3" data-key="proj2-img" onclick="pickImage(this)">
+        <div class="img-block" data-key="proj2-img" onclick="pickImage(this)">
           <div class="img-overlay">📷 Click to upload image</div>
           <span class="img-label">Project thumbnail</span>
         </div>
-        <div class="card-label" contenteditable="false" data-key="proj2-label">Video Production</div>
-        <h3 contenteditable="false" data-key="proj2-title">VSA Tết Recap</h3>
-        <p contenteditable="false" data-key="proj2-desc">Promotional recap video for the University of Iowa Vietnamese Student Association's Tết celebration. Shot, edited, and published to YouTube.</p>
-        <a href="https://youtu.be/XBmSefmJQOY" class="card-link" contenteditable="false" data-key="proj2-link">Watch on YouTube →</a>
+        <div class="card-body">
+          <div class="card-label" contenteditable="false" data-key="proj2-label">Video Production</div>
+          <h3 contenteditable="false" data-key="proj2-title">VSA Tết Recap</h3>
+          <p contenteditable="false" data-key="proj2-desc">Promotional recap video for the University of Iowa Vietnamese Student Association's Tết celebration. Shot, edited, and published to YouTube.</p>
+          <a href="https://youtu.be/XBmSefmJQOY" class="card-link" contenteditable="false" data-key="proj2-link">Watch on YouTube →</a>
+        </div>
       </div>
 
       <div class="card">
-        <div class="img-block" style="aspect-ratio:4/3" data-key="proj3-img" onclick="pickImage(this)">
+        <div class="img-block" data-key="proj3-img" onclick="pickImage(this)">
           <div class="img-overlay">📷 Click to upload image</div>
           <span class="img-label">Project thumbnail</span>
         </div>
-        <div class="card-label" contenteditable="false" data-key="proj3-label">UX / Web Design</div>
-        <h3 contenteditable="false" data-key="proj3-title">Saigon's Corner</h3>
-        <p contenteditable="false" data-key="proj3-desc">Website redesign for a local Vietnamese restaurant. Created user research, wireframes, and a high-fidelity prototype in Penpot with a full case study.</p>
-        <a href="projects/saigons-corner.html" class="card-link" contenteditable="false" data-key="proj3-link">View Case Study →</a>
+        <div class="card-body">
+          <div class="card-label" contenteditable="false" data-key="proj3-label">UX / Web Design</div>
+          <h3 contenteditable="false" data-key="proj3-title">Saigon's Corner</h3>
+          <p contenteditable="false" data-key="proj3-desc">Website redesign for a local Vietnamese restaurant. Created user research, wireframes, and a high-fidelity prototype in Penpot with a full case study.</p>
+          <a href="projects/saigons-corner.html?eb=1" class="card-link" contenteditable="false" data-key="proj3-link">View Case Study →</a>
+        </div>
       </div>
 
       <div class="card">
-        <div class="img-block" style="aspect-ratio:4/3" data-key="proj4-img" onclick="pickImage(this)">
+        <div class="img-block" data-key="proj4-img" onclick="pickImage(this)">
           <div class="img-overlay">📷 Click to upload image</div>
           <span class="img-label">Project thumbnail</span>
         </div>
-        <div class="card-label" contenteditable="false" data-key="proj4-label">Print / Editorial</div>
-        <h3 contenteditable="false" data-key="proj4-title">Process Catalogue</h3>
-        <p contenteditable="false" data-key="proj4-desc">Designed and produced a 40-page catalogue for the University of Iowa School of Art, showcasing student and faculty work. Layout in Adobe InDesign.</p>
-        <a href="projects/process-catalogue.html" class="card-link" contenteditable="false" data-key="proj4-link">View Case Study →</a>
+        <div class="card-body">
+          <div class="card-label" contenteditable="false" data-key="proj4-label">Print / Editorial</div>
+          <h3 contenteditable="false" data-key="proj4-title">Process Catalogue</h3>
+          <p contenteditable="false" data-key="proj4-desc">Designed and produced a 40-page catalogue for the University of Iowa School of Art, showcasing student and faculty work. Layout in Adobe InDesign.</p>
+          <a href="projects/process-catalogue.html?eb=1" class="card-link" contenteditable="false" data-key="proj4-link">View Case Study →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-block" data-key="proj5-img" onclick="pickImage(this)">
+          <div class="img-overlay">📷 Click to upload image</div>
+          <span class="img-label">Project thumbnail</span>
+        </div>
+        <div class="card-body">
+          <div class="card-label" contenteditable="false" data-key="proj5-label">Music Production App</div>
+          <h3 contenteditable="false" data-key="proj5-title">DAW Studio</h3>
+          <p contenteditable="false" data-key="proj5-desc">Browser-based digital audio workstation with multi-track editing, real-time effects processing, live recording, and WAV export — built with React, TypeScript, and the Web Audio API.</p>
+          <a href="projects/daw-studio.html?eb=1" class="card-link" contenteditable="false" data-key="proj5-link">View Case Study →</a>
+        </div>
       </div>
 
     </div>
@@ -543,6 +596,7 @@
     const p2 = imgTag('proj2-img', '4/3');
     const p3 = imgTag('proj3-img', '4/3');
     const p4 = imgTag('proj4-img', '4/3');
+    const p5 = imgTag('proj5-img', '4/3');
 
     // Build skill lists from current DOM
     function buildSkillList(listId) {
@@ -559,7 +613,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>${document.querySelector('[data-key="hero-name"]').innerText.trim()} — Portfolio</title>
+  <title>${(document.querySelector('[data-key="hero-name"]') || {}).innerText?.trim() || 'Douglas Tran'} — Portfolio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -580,7 +634,7 @@ ${hiddenIds.has('') ? '' : `  <section class="hero">
       <p class="hero-sub">${texts['hero-sub'] || ''}</p>
       <p class="hero-desc">${texts['hero-desc'] || ''}</p>
       <div class="hero-links">
-        <a href="mailto:${document.querySelector('[data-key="contact-email"]').innerText.trim()}" class="btn">${texts['btn-email'] || 'Email Me'}</a>
+        <a href="mailto:${(document.querySelector('[data-key="contact-email"]') || {}).innerText?.trim() || ''}" class="btn">${texts['btn-email'] || 'Email Me'}</a>
         <a href="https://linkedin.com/in/douglastran1" target="_blank" class="btn btn-outline">${texts['btn-linkedin'] || 'LinkedIn'}</a>
         <a href="resume.pdf" target="_blank" class="btn btn-outline">${texts['btn-resume'] || 'Resume'}</a>
       </div>
@@ -629,34 +683,52 @@ ${buildSkillList('skill-list-3')}
 
         <div class="card">
           ${p1}
-          <div class="card-label">${texts['proj1-label'] || ''}</div>
-          <h3>${texts['proj1-title'] || ''}</h3>
-          <p>${texts['proj1-desc'] || ''}</p>
-          <a href="projects/dragons-roast.html" class="card-link">${texts['proj1-link'] || 'View Case Study →'}</a>
+          <div class="card-body">
+            <div class="card-label">${texts['proj1-label'] || ''}</div>
+            <h3>${texts['proj1-title'] || ''}</h3>
+            <p>${texts['proj1-desc'] || ''}</p>
+            <a href="projects/dragons-roast.html" class="card-link">${texts['proj1-link'] || 'View Case Study →'}</a>
+          </div>
         </div>
 
         <div class="card">
           ${p2}
-          <div class="card-label">${texts['proj2-label'] || ''}</div>
-          <h3>${texts['proj2-title'] || ''}</h3>
-          <p>${texts['proj2-desc'] || ''}</p>
-          <a href="https://youtu.be/XBmSefmJQOY" class="card-link">${texts['proj2-link'] || 'Watch on YouTube →'}</a>
+          <div class="card-body">
+            <div class="card-label">${texts['proj2-label'] || ''}</div>
+            <h3>${texts['proj2-title'] || ''}</h3>
+            <p>${texts['proj2-desc'] || ''}</p>
+            <a href="https://youtu.be/XBmSefmJQOY" class="card-link">${texts['proj2-link'] || 'Watch on YouTube →'}</a>
+          </div>
         </div>
 
         <div class="card">
           ${p3}
-          <div class="card-label">${texts['proj3-label'] || ''}</div>
-          <h3>${texts['proj3-title'] || ''}</h3>
-          <p>${texts['proj3-desc'] || ''}</p>
-          <a href="projects/saigons-corner.html" class="card-link">${texts['proj3-link'] || 'View Case Study →'}</a>
+          <div class="card-body">
+            <div class="card-label">${texts['proj3-label'] || ''}</div>
+            <h3>${texts['proj3-title'] || ''}</h3>
+            <p>${texts['proj3-desc'] || ''}</p>
+            <a href="projects/saigons-corner.html" class="card-link">${texts['proj3-link'] || 'View Case Study →'}</a>
+          </div>
         </div>
 
         <div class="card">
           ${p4}
-          <div class="card-label">${texts['proj4-label'] || ''}</div>
-          <h3>${texts['proj4-title'] || ''}</h3>
-          <p>${texts['proj4-desc'] || ''}</p>
-          <a href="projects/process-catalogue.html" class="card-link">${texts['proj4-link'] || 'View Case Study →'}</a>
+          <div class="card-body">
+            <div class="card-label">${texts['proj4-label'] || ''}</div>
+            <h3>${texts['proj4-title'] || ''}</h3>
+            <p>${texts['proj4-desc'] || ''}</p>
+            <a href="projects/process-catalogue.html" class="card-link">${texts['proj4-link'] || 'View Case Study →'}</a>
+          </div>
+        </div>
+
+        <div class="card">
+          ${p5}
+          <div class="card-body">
+            <div class="card-label">${texts['proj5-label'] || ''}</div>
+            <h3>${texts['proj5-title'] || ''}</h3>
+            <p>${texts['proj5-desc'] || ''}</p>
+            <a href="projects/daw-studio.html" class="card-link">${texts['proj5-link'] || 'View Case Study →'}</a>
+          </div>
         </div>
 
       </div>
@@ -668,9 +740,7 @@ ${buildSkillList('skill-list-3')}
       <h2>${texts['contact-title'] || 'Get in Touch'}</h2>
       <p>${texts['contact-desc'] || ''}</p>
       <div class="contact-links">
-        <a href="mailto:${document.querySelector('[data-key="contact-email"]').innerText.trim()}">${texts['contact-email'] || ''}</a>
-        <span>·</span>
-        <a href="tel:${document.querySelector('[data-key="contact-phone"]').innerText.replace(/\D/g,'')}">${texts['contact-phone'] || ''}</a>
+        <a href="mailto:${(document.querySelector('[data-key="contact-email"]') || {}).innerText?.trim() || ''}">${texts['contact-email'] || ''}</a>
         <span>·</span>
         <a href="https://linkedin.com/in/douglastran1" target="_blank">${texts['contact-linkedin'] || 'LinkedIn'}</a>
         <span>·</span>
