@@ -403,6 +403,18 @@
         </div>
       </div>
 
+      <div class="card">
+        <div class="img-block" data-key="proj6-img" onclick="pickImage(this)">
+          <div class="img-label">Click to upload image</div>
+        </div>
+        <div class="card-body">
+          <div class="card-label" contenteditable="false" data-key="proj6-label">Automation</div>
+          <h3 contenteditable="false" data-key="proj6-title">ComfortFirst HVAC — Speed to Lead</h3>
+          <p contenteditable="false" data-key="proj6-desc">Lead response automation for a local HVAC company. Google Form submissions trigger instant personalized emails to leads and emergency alerts to the owner — built with Make.com and Google Apps Script.</p>
+          <a href="projects/comfortfirst-hvac.html?eb=1" class="card-link" contenteditable="false" data-key="proj6-link">View Case Study →</a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -597,6 +609,7 @@
     const p3 = imgTag('proj3-img', '4/3');
     const p4 = imgTag('proj4-img', '4/3');
     const p5 = imgTag('proj5-img', '4/3');
+    const p6 = imgTag('proj6-img', '4/3');
 
     // Build skill lists from current DOM
     function buildSkillList(listId) {
@@ -728,6 +741,16 @@ ${buildSkillList('skill-list-3')}
             <h3>${texts['proj5-title'] || ''}</h3>
             <p>${texts['proj5-desc'] || ''}</p>
             <a href="projects/daw-studio.html" class="card-link">${texts['proj5-link'] || 'View Case Study →'}</a>
+          </div>
+        </div>
+
+        <div class="card">
+          ${p6}
+          <div class="card-body">
+            <div class="card-label">${texts['proj6-label'] || ''}</div>
+            <h3>${texts['proj6-title'] || ''}</h3>
+            <p>${texts['proj6-desc'] || ''}</p>
+            <a href="projects/comfortfirst-hvac.html" class="card-link">${texts['proj6-link'] || 'View Case Study →'}</a>
           </div>
         </div>
 

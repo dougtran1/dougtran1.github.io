@@ -583,16 +583,31 @@
     });
     clone.querySelectorAll('[contenteditable]').forEach(function (el) { el.removeAttribute('contenteditable'); });
     clone.querySelectorAll(
-      '.eb-img-overlay, .eb-cell-overlay, .eb-add-cell, .eb-block-controls, .eb-insert-zone'
+      '.eb-img-overlay, .eb-cell-overlay, .eb-add-cell, .eb-block-controls, .eb-insert-zone, .eb-del-btn'
     ).forEach(function (el) { el.remove(); });
     clone.querySelector('body')?.classList.remove('eb-editing');
-    // Bake sizing reset into filled blocks (injected stylesheet won't be present)
+    // Clean filled image blocks: remove editor classes/inline styles, apply clean presentation
     clone.querySelectorAll('.placeholder-img.eb-has-images').forEach(function (block) {
-      block.style.cssText +=
-        ';aspect-ratio:unset!important;background:transparent!important;' +
-        'border:none!important;display:block!important;padding:0!important;' +
-        'min-height:unset!important;justify-content:unset!important;' +
-        'align-items:unset!important;overflow:visible!important;';
+      block.classList.remove('eb-has-images');
+      block.removeAttribute('data-eb-img-key');
+      block.removeAttribute('style');
+      // Replace editor grid markup with clean img tags
+      var images = block.querySelectorAll('img.eb-uploaded');
+      var srcs = [];
+      images.forEach(function (img) { srcs.push(img.src); });
+      // Remove the editor grid structure
+      var grid = block.querySelector('.eb-img-grid');
+      if (grid) grid.remove();
+      var label = block.querySelector('.placeholder-label');
+      if (label) label.remove();
+      // Insert clean images directly into the block
+      srcs.forEach(function (src) {
+        var img = document.createElement('img');
+        img.src = src;
+        img.alt = '';
+        img.style.cssText = 'width:100%;height:auto;display:block;border-radius:8px;margin-bottom:0.5rem;';
+        block.appendChild(img);
+      });
     });
     // Drop empty captions from export
     clone.querySelectorAll('.eb-caption').forEach(function (el) {
