@@ -234,6 +234,13 @@ a { color: inherit; text-decoration: none; }
 .h-end h3 { font-family: var(--black); font-size: 56px; color: var(--accent); letter-spacing: -0.02em; }
 .h-end p { font-family: var(--mono); font-size: 14px; color: #b8b6c2; margin-top: 8px; }
 
+@media (max-width: 720px) {
+  .h-track { padding: 60px 40px; }
+  .h-card { flex: 0 0 85vw; max-width: 420px; }
+  .h-end { flex: 0 0 calc(100vw - 80px); padding: 0; }
+  .h-end h3 { font-size: clamp(56px, 16vw, 88px); }
+}
+
 /* Skills */
 .skills { padding: 120px 32px; max-width: 1400px; margin: 0 auto; }
 .skills-head { margin-bottom: 64px; }

@@ -49,7 +49,15 @@ mm.add(
     const hTrack = document.querySelector(".h-track");
     const hPin = document.querySelector(".h-work-pin");
     if (hTrack && hPin) {
-      const distance = () => hTrack.scrollWidth - window.innerWidth + 160;
+      const distance = () => {
+        const hEnd = hTrack.querySelector(".h-end");
+        const padLeft = parseFloat(getComputedStyle(hTrack).paddingLeft) || 0;
+        const padRight = parseFloat(getComputedStyle(hTrack).paddingRight) || 0;
+        if (hEnd && hEnd.offsetWidth > window.innerWidth - padLeft - padRight) {
+          return Math.max(0, hEnd.offsetLeft - padLeft);
+        }
+        return hTrack.scrollWidth - window.innerWidth + 160;
+      };
       gsap.to(hTrack, {
         x: () => -distance(),
         ease: "none",
