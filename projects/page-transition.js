@@ -1,7 +1,7 @@
 // Page transition — intercepts clicks on home-bound links, fades/slides the
 // current page out, then navigates. Pairs with `.page-exit` CSS in case-study.css.
 (function () {
-  const SELECTOR = 'a[href*="variations/v2-maximalist/"]';
+  const SELECTOR = 'a[href^="../index.html"]';
   const DURATION = 420;
 
   document.querySelectorAll(SELECTOR).forEach((link) => {
