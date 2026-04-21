@@ -391,19 +391,6 @@
       </div>
 
       <div class="card">
-        <div class="img-block" data-key="proj5-img" onclick="pickImage(this)">
-          <div class="img-overlay">📷 Click to upload image</div>
-          <span class="img-label">Project thumbnail</span>
-        </div>
-        <div class="card-body">
-          <div class="card-label" contenteditable="false" data-key="proj5-label">Music Production App</div>
-          <h3 contenteditable="false" data-key="proj5-title">DAW Studio</h3>
-          <p contenteditable="false" data-key="proj5-desc">Browser-based digital audio workstation with multi-track editing, real-time effects processing, live recording, and WAV export — built with React, TypeScript, and the Web Audio API.</p>
-          <a href="projects/daw-studio.html?eb=1" class="card-link" contenteditable="false" data-key="proj5-link">View Case Study →</a>
-        </div>
-      </div>
-
-      <div class="card">
         <div class="img-block" data-key="proj6-img" onclick="pickImage(this)">
           <div class="img-label">Click to upload image</div>
         </div>
@@ -608,7 +595,6 @@
     const p2 = imgTag('proj2-img', '4/3');
     const p3 = imgTag('proj3-img', '4/3');
     const p4 = imgTag('proj4-img', '4/3');
-    const p5 = imgTag('proj5-img', '4/3');
     const p6 = imgTag('proj6-img', '4/3');
 
     // Build skill lists from current DOM
@@ -731,16 +717,6 @@ ${buildSkillList('skill-list-3')}
             <h3>${texts['proj4-title'] || ''}</h3>
             <p>${texts['proj4-desc'] || ''}</p>
             <a href="projects/process-catalogue.html" class="card-link">${texts['proj4-link'] || 'View Case Study →'}</a>
-          </div>
-        </div>
-
-        <div class="card">
-          ${p5}
-          <div class="card-body">
-            <div class="card-label">${texts['proj5-label'] || ''}</div>
-            <h3>${texts['proj5-title'] || ''}</h3>
-            <p>${texts['proj5-desc'] || ''}</p>
-            <a href="projects/daw-studio.html" class="card-link">${texts['proj5-link'] || 'View Case Study →'}</a>
           </div>
         </div>
 

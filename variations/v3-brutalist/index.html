@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>doug tran — tty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="crt"></div>
+  <main class="term">
+    <header class="term-header">
+      <span class="term-title">douglas-tran.tty &mdash; portfolio v0.1</span>
+      <span class="term-controls"><i></i><i></i><i></i></span>
+    </header>
+
+    <section class="block" id="top">
+      <p class="prompt">$ whoami</p>
+      <p class="out">douglas tran &mdash; designer / builder / it generalist</p>
+      <p class="prompt">$ cat intro.txt</p>
+      <h1 class="hero-name" data-type>douglas tran<span class="cursor">_</span></h1>
+      <p class="out wrap">
+        hey. i design brand systems, build small tools, and make<br/>
+        automation that actually runs. i also fix the boring stuff<br/>
+        (help desk, erp, hardware, windows). dallas, tx.<br/>
+        open to freelance + it support roles.
+      </p>
+      <p class="prompt">$ ls</p>
+      <div class="ls">
+        <a href="#work">./work</a>
+        <a href="#skills">./skills</a>
+        <a href="../../about.html">./about</a>
+        <a href="#contact">./contact</a>
+      </div>
+    </section>
+
+    <section class="block" id="work">
+      <p class="prompt">$ cat work.md</p>
+      <h2 class="block-title"># selected work</h2>
+      <p class="meta">// 6 entries &middot; case studies &amp; a video</p>
+
+      <ul class="work-list">
+        <li>
+          <a href="../../projects/dragons-roast.html" class="row">
+            <span class="row-num">01</span>
+            <span class="row-cat">[branding]</span>
+            <span class="row-name">dragon's roast</span>
+            <span class="row-arrow">&rarr;</span>
+            <span class="row-desc">full brand identity for a fictional vietnamese-fusion coffee shop. logo, palette, type, guidelines. illustrator + penpot.</span>
+          </a>
+        </li>
+        <li>
+          <a href="../../projects/comfortfirst-hvac.html" class="row">
+            <span class="row-num">02</span>
+            <span class="row-cat">[automation]</span>
+            <span class="row-name">comfortfirst hvac &mdash; speed to lead</span>
+            <span class="row-arrow">&rarr;</span>
+            <span class="row-desc">lead response automation. form submissions trigger personalized emails + emergency alerts. make.com + apps script.</span>
+          </a>
+        </li>
+        <li>
+          <a href="../../projects/saigons-corner.html" class="row">
+            <span class="row-num">03</span>
+            <span class="row-cat">[ux/web]</span>
+            <span class="row-name">saigon's corner</span>
+            <span class="row-arrow">&rarr;</span>
+            <span class="row-desc">restaurant website redesign. user research, wireframes, hi-fi prototype in penpot + full case study.</span>
+          </a>
+        </li>
+        <li>
+          <a href="../../projects/process-catalogue.html" class="row">
+            <span class="row-num">04</span>
+            <span class="row-cat">[print]</span>
+            <span class="row-name">process catalogue</span>
+            <span class="row-arrow">&rarr;</span>
+            <span class="row-desc">40-page catalogue for uiowa school of art. student + faculty work. indesign.</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://youtu.be/XBmSefmJQOY" target="_blank" rel="noopener" class="row">
+            <span class="row-num">05</span>
+            <span class="row-cat">[video]</span>
+            <span class="row-name">vsa t&#7871;t recap</span>
+            <span class="row-arrow">&nearr;</span>
+            <span class="row-desc">recap video for uiowa vsa's t&#7871;t celebration. shot, edited, published. youtube.</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="block" id="skills">
+      <p class="prompt">$ cat stack.txt</p>
+      <h2 class="block-title"># what i do</h2>
+
+      <div class="stack">
+        <div class="stack-col">
+          <p class="col-head">[design]</p>
+          <ul>
+            <li>brand identity &amp; logo design</li>
+            <li>print &amp; editorial layout</li>
+            <li>ui / ux prototyping</li>
+            <li>adobe cc &middot; canva &middot; penpot</li>
+          </ul>
+        </div>
+        <div class="stack-col">
+          <p class="col-head">[automation/ai]</p>
+          <ul>
+            <li>workflow automation (make, apps script)</li>
+            <li>mcp server configuration</li>
+            <li>python scripting</li>
+            <li>prompt engineering &middot; claude api</li>
+          </ul>
+        </div>
+        <div class="stack-col">
+          <p class="col-head">[it/support]</p>
+          <ul>
+            <li>help desk / desktop support</li>
+            <li>microsoft dynamics nav (erp)</li>
+            <li>windows os troubleshooting</li>
+            <li>microsoft 365 &middot; hardware setup</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="contact">
+      <p class="prompt">$ contact --now</p>
+      <h2 class="block-title"># &gt; contact</h2>
+      <pre class="ascii" aria-hidden="true">
+  +------------------------+
+  |  mail: DougTran1@...   |
+  |  loc:  dallas, tx      |
+  |  stat: available       |
+  +------------------------+
+      </pre>
+      <p class="out">
+        email: <a href="mailto:DougTran1@gmail.com">DougTran1@gmail.com</a><br/>
+        linkedin: <a href="https://linkedin.com/in/douglastran1" target="_blank" rel="noopener">/in/douglastran1</a><br/>
+        github: <a href="https://github.com/dougtran1" target="_blank" rel="noopener">/dougtran1</a><br/>
+        resume: <a href="../../Douglas Tran Resume.docx.pdf" target="_blank" rel="noopener">resume.pdf</a>
+      </p>
+      <p class="prompt blink-prompt">$ <span class="cursor">_</span></p>
+    </section>
+
+    <footer class="term-footer">
+      <span>// 2026 &middot; douglas tran &middot; built in plaintext</span>
+      <span>tty &middot; v0.1</span>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="motion.js"></script>
+</body>
+</html>

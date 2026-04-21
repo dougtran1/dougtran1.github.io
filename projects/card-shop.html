@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" class="js"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Shop. Douglas Tran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="case-study.css">
+</head>
+<body>
+
+  <header class="cs-nav">
+    <a href="../variations/v2-maximalist/index.html" class="cs-nav-mark">DOUG<span class="dot">.</span>TRAN</a>
+    <nav class="cs-nav-links">
+      <a href="../variations/v2-maximalist/index.html#work">&larr; Back to work</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="cs-hero">
+      <div class="cs-hero-inner">
+        <p class="section-label">Full Stack / Web</p>
+        <h1 class="cs-title">
+          <span class="line"><span class="word">CARD</span></span>
+          <span class="line"><span class="word italic">SHOP.</span></span>
+        </h1>
+        <div class="cs-meta">
+          <div class="cs-meta-item">
+            <label>Role</label>
+            <span>Designer &amp; Developer</span>
+          </div>
+          <div class="cs-meta-item">
+            <label>Timeline</label>
+            <span>Two Days</span>
+          </div>
+          <div class="cs-meta-item">
+            <label>Type</label>
+            <span>Portfolio Demo</span>
+          </div>
+          <div class="cs-meta-item">
+            <label>Live Site</label>
+            <span><a href="https://card-shop-db2nkp70z-dougtran1s-projects.vercel.app/demo" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">View Demo &rarr;</a></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <article class="cs-body">
+      <h2 data-reveal>The problem</h2>
+      <p data-reveal>Customers at physical card shops waste time digging through bulk boxes looking for specific cards. It takes up table space meant for tournaments and pushes sales toward online competitors like TCGPlayer. Shop owners lose foot traffic <em>and</em> revenue.</p>
+      <p data-reveal>The pitch behind this build: a public inventory site that lets customers browse what the shop actually has, reserve cards online, and pick them up in store within a 48-hour hold window.</p>
+
+      <h2 data-reveal>What I built</h2>
+      <p data-reveal>A full production-feature stack on free-tier services. Three card games supported (Pokemon, MTG, One Piece), customer accounts with wishlists and stock notifications, an admin panel for inventory + analytics, and an atomic hold system that prevents double-reservations.</p>
+
+      <ul data-reveal>
+        <li><strong>Browse + filter</strong> by game, set, rarity, condition, price range</li>
+        <li><strong>Reserve cards</strong> for in-store pickup with a 48-hour hold timer</li>
+        <li><strong>Customer accounts</strong> — wishlist, order history, "notify me when in stock"</li>
+        <li><strong>Admin panel</strong> — add cards via API search (PokeTCG, Scryfall), CSV bulk import, manual entry, dynamic pricing</li>
+        <li><strong>Analytics dashboard</strong> — inventory value, popular cards, traffic, with role-based access</li>
+        <li><strong>Light/dark mode</strong>, real-time stock notifications via WebSocket</li>
+      </ul>
+
+      <h2 data-reveal>Tech stack</h2>
+      <p data-reveal>Constraint: everything had to run on free tiers. The whole stack costs $0/month and still supports the full feature set.</p>
+
+      <div class="tech-tags" data-reveal>
+        <span class="tech-tag">Next.js 16</span>
+        <span class="tech-tag">Supabase</span>
+        <span class="tech-tag">Resend</span>
+        <span class="tech-tag">Tailwind CSS v4</span>
+        <span class="tech-tag">Recharts</span>
+        <span class="tech-tag">Vercel</span>
+        <span class="tech-tag">PokeTCG API</span>
+        <span class="tech-tag">Scryfall API</span>
+      </div>
+
+      <h2 data-reveal>How holds work</h2>
+      <p data-reveal>The hold system was the trickiest piece. If two customers click "reserve" on the same card at the same moment, only one should win. I used a Postgres transaction inside a Supabase RPC so the inventory check and hold insert happen atomically. A scheduled cron job clears expired holds back to available stock every 5 minutes.</p>
+
+      <div class="flow-diagram" data-reveal>customer clicks reserve
+   ↓
+RPC: lock row, check stock, insert hold (atomic)
+   ↓
+hold expires after 48h  →  cron releases stock
+        ↓
+   pickup confirmed  →  hold marked complete</div>
+
+      <h2 data-reveal>The admin side</h2>
+      <p data-reveal>Shop owners aren't going to manually type 500 cards into a database. The admin panel uses the PokeTCG and Scryfall APIs so a staff member can search "Charizard ex" and one click auto-fills the image, set, rarity, and current market price. Pricing supports either auto market price + markup percent or a manual override per card.</p>
+      <p data-reveal>For bulk inventory adds (e.g. opening a new shop), a CSV import takes a spreadsheet of set codes and pulls everything from the APIs in one batch.</p>
+
+      <h2 data-reveal>Database design</h2>
+      <p data-reveal>10 tables behind the scenes — cards, holds, users, wishlists, notifications, audit logs. Row-level security policies in Supabase enforce who can see what (customers only see their own holds; staff see everyone's; owners see analytics).</p>
+
+      <h2 data-reveal>What's deliberately out of scope</h2>
+      <p data-reveal>No payments. Holds are reservation-only — pay in store. This was a feature, not a limitation: the goal is to drive foot traffic, not to compete with TCGPlayer's checkout. Skipping Stripe also kept the project on the free tier.</p>
+      <p data-reveal>Phone-based card scanning (point camera at a card to add it) is a separate future project. Computer vision and a mobile app are out of scope for a website demo.</p>
+
+      <h2 data-reveal>Outcome</h2>
+      <p data-reveal>Shipped end-to-end in two days. Lives at <a href="https://card-shop-db2nkp70z-dougtran1s-projects.vercel.app/demo" target="_blank" rel="noopener" style="color:var(--accent);">the live demo</a> with three seeded accounts (owner, staff, customer) so anyone can poke around the full feature set without signing up.</p>
+      <p data-reveal>The piece I'm proudest of: a feature-complete production app — auth, RLS, atomic transactions, real-time notifications, analytics, dynamic pricing — running on $0/month of infrastructure. It's the demo I show to small business owners to make the case that custom software is reachable for them.</p>
+    </article>
+  </main>
+
+  <footer class="cs-footer">
+    <div class="cs-footer-huge">
+      <span class="line">LET'S</span>
+      <span class="line italic">BUILD</span>
+      <span class="line">SOMETHING.</span>
+    </div>
+    <div class="cs-footer-row">
+      <a href="mailto:DougTran1@gmail.com" class="cs-footer-mail">DougTran1@gmail.com</a>
+      <div class="cs-footer-links">
+        <a href="https://linkedin.com/in/douglastran1" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/dougtran1" target="_blank" rel="noopener">GitHub</a>
+        <a href="../Douglas Tran Resume.docx.pdf" target="_blank" rel="noopener">Resume</a>
+      </div>
+    </div>
+    <div class="cs-footer-meta">
+      <span>&copy; 2026 Douglas Tran</span>
+      <span>Dallas &middot; TX</span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", () => {
+      const words = gsap.utils.toArray(".cs-title .word");
+      gsap.set(words, { yPercent: 110 });
+      gsap.set([".section-label", ".cs-meta"], { autoAlpha: 0, y: 12 });
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      tl.to(words, { yPercent: 0, duration: 0.75, stagger: 0.08 }, 0);
+      tl.to(".section-label", { autoAlpha: 1, y: 0, duration: 0.5 }, 0);
+      tl.to(".cs-meta", { autoAlpha: 1, y: 0, duration: 0.5 }, 0.35);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+  </script>
+
+  <script src="../lightbox.js"></script>
+  <script src="../editor-bar.js"></script>
+  <script src="page-transition.js" defer></script>
+
+</body></html>

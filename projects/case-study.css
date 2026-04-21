@@ -1,0 +1,365 @@
+/* Case Study — shared V2-matched theme
+   Pairs with projects/*.html. Dark bg, Archivo Black display, lilac accent. */
+
+:root {
+  --bg: #0a0a0c;
+  --bg-2: #14141a;
+  --ink: #ededed;
+  --ink-dim: #b8b6c2;
+  --accent: #c4a7ff;
+  --accent-dim: #9e82d9;
+  --muted: #7a7884;
+  --line: #2a2730;
+  --sans: "Archivo", -apple-system, BlinkMacSystemFont, sans-serif;
+  --black: "Archivo Black", "Archivo", sans-serif;
+  --mono: "JetBrains Mono", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+
+/* Nav */
+.cs-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 32px;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+.cs-nav-mark {
+  font-family: var(--black);
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+.cs-nav-mark .dot { color: var(--accent); }
+.cs-nav-links a {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.cs-nav-links a:hover { color: var(--accent); }
+
+/* Hero */
+.cs-hero {
+  min-height: 90vh;
+  padding: 120px 32px 60px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-bottom: 1px solid var(--line);
+}
+.cs-hero-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 28px;
+}
+.cs-title {
+  font-family: var(--black);
+  font-size: clamp(64px, 12vw, 180px);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  font-weight: 900;
+  margin-bottom: 56px;
+  color: var(--ink);
+}
+.cs-title .line { display: block; overflow: hidden; }
+.cs-title .word { display: inline-block; }
+.cs-title .italic { font-style: italic; color: var(--accent); }
+.cs-title .stroke {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--ink);
+}
+
+.cs-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+.cs-meta-item label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.cs-meta-item span {
+  font-family: var(--black);
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* Body */
+.cs-body {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 100px 32px 120px;
+}
+.cs-body h2 {
+  font-family: var(--black);
+  font-size: clamp(28px, 3.6vw, 40px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 64px 0 20px;
+  color: var(--ink);
+}
+.cs-body h2:first-child { margin-top: 0; }
+.cs-body h2 + h2 { margin-top: 48px; }
+.cs-body p {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--ink-dim);
+  margin-bottom: 20px;
+}
+.cs-body p strong { color: var(--ink); font-weight: 700; }
+.cs-body ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 20px 0 32px;
+}
+.cs-body ul li {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink-dim);
+  padding: 10px 0 10px 24px;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+.cs-body ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 18px;
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.cs-body blockquote {
+  margin: 20px 0;
+  padding: 20px 28px;
+  border-left: 3px solid var(--accent);
+  background: var(--bg-2);
+  font-family: var(--sans);
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+/* Color swatches */
+.color-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin: 28px 0 40px;
+}
+.swatch {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.swatch-block {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+}
+.swatch span {
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--ink-dim);
+}
+
+/* Tech tags */
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 32px;
+}
+.tech-tag {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  color: var(--ink-dim);
+  letter-spacing: 0.02em;
+}
+
+/* Flow diagram */
+.flow-diagram {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-dim);
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 24px 28px;
+  margin: 24px 0 32px;
+  line-height: 1.9;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* Image blocks (editor output preserved) */
+.placeholder-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 13px;
+  margin: 40px 0;
+}
+.eb-del-btn { display: none !important; }
+.eb-has-images {
+  margin: 40px 0;
+  overflow: hidden !important;
+}
+.eb-img-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+.eb-img-cell {
+  flex: 1 1 auto;
+  min-width: 0;
+  position: relative;
+}
+.eb-uploaded {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+.eb-caption {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 10px;
+  letter-spacing: 0.02em;
+}
+
+/* Reveal helpers */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+[data-reveal].visible { opacity: 1; transform: translateY(0); }
+
+/* Page exit transition — triggered by page-transition.js before navigating home. */
+body {
+  transition: opacity 0.42s cubic-bezier(0.4, 0, 0.2, 1), transform 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+}
+body.page-exit {
+  opacity: 0;
+  transform: translateY(-16px) scale(0.985);
+  pointer-events: none;
+}
+
+/* Footer (loud, matches V2) */
+.cs-footer {
+  background: var(--bg-2);
+  color: var(--ink);
+  padding: 100px 32px 32px;
+  border-top: 1px solid var(--line);
+}
+.cs-footer-huge {
+  font-family: var(--black);
+  font-size: clamp(48px, 11vw, 160px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  margin-bottom: 64px;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cs-footer-huge .line { display: block; }
+.cs-footer-huge .italic { font-style: italic; color: var(--accent); }
+.cs-footer-row {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+}
+.cs-footer-mail {
+  font-family: var(--black);
+  font-size: clamp(20px, 2.8vw, 36px);
+  letter-spacing: -0.02em;
+  border-bottom: 2px solid var(--ink);
+}
+.cs-footer-mail:hover { color: var(--accent); border-color: var(--accent); }
+.cs-footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.cs-footer-links a {
+  font-family: var(--mono);
+  font-size: 14px;
+  border-bottom: 1px solid transparent;
+}
+.cs-footer-links a:hover { color: var(--accent); border-color: var(--accent); }
+.cs-footer-meta {
+  max-width: 1400px;
+  margin: 24px auto 0;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Mobile */
+@media (max-width: 720px) {
+  .cs-nav { padding: 16px 20px; }
+  .cs-hero { padding: 100px 20px 40px; }
+  .cs-body { padding: 60px 20px 80px; }
+  .cs-meta { gap: 28px; }
+  .cs-footer { padding: 60px 20px 24px; }
+  .cs-footer-meta { flex-direction: column; gap: 8px; }
+}

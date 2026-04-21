@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Variations — Pick One</title>
+  <style>
+    :root {
+      --bg: #0f0f11;
+      --text: #ececec;
+      --muted: #9b9ba0;
+      --card: #17171a;
+      --line: #2a2a2e;
+      --accent: #7cf0c9;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 64px 32px 120px; }
+    header { margin-bottom: 56px; }
+    .eyebrow { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+    h1 { font-size: clamp(36px, 5vw, 56px); font-weight: 600; letter-spacing: -0.03em; margin-bottom: 12px; }
+    .sub { font-size: 18px; color: var(--muted); max-width: 680px; }
+    .back { color: var(--muted); text-decoration: none; font-size: 13px; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+    .back:hover { color: var(--accent); border-color: var(--accent); }
+    nav.top { margin-bottom: 40px; display: flex; gap: 24px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .card-preview {
+      aspect-ratio: 16/10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      padding: 24px;
+      text-align: center;
+    }
+    .card-body { padding: 24px 24px 28px; }
+    .card-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .card h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .card p { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+    .card-links { display: flex; gap: 16px; flex-wrap: wrap; }
+    .card-links a { color: var(--text); text-decoration: none; font-size: 13px; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+    .card-links a:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* Preview treatments */
+    .p-editorial {
+      background: #f4f0e8; color: #1a1815;
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-style: italic;
+    }
+    .p-maximalist {
+      background: #0a0a0c; color: #ededed;
+      font-family: "Archivo Black", Impact, sans-serif;
+      font-size: clamp(32px, 5vw, 60px);
+    }
+    .p-maximalist em { font-style: italic; color: #c4a7ff; }
+    .p-brutalist {
+      background: #0d0f0c; color: #6ef580;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: clamp(18px, 2.4vw, 26px);
+      text-align: left;
+      align-items: flex-start;
+      padding: 32px;
+      line-height: 1.6;
+    }
+    .p-minimal {
+      background: #fafaf7; color: #111;
+      font-family: "Inter", sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+    }
+    .p-dark {
+      background: #3F334D; color: #C0C5C1;
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(28px, 4.5vw, 52px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+    .p-dark em { font-style: italic; color: #EAF0CE; }
+
+    .meta-row {
+      display: flex;
+      gap: 16px;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top">
+      <a href="../index.html" class="back">&larr; Production site</a>
+      <a href="../about.html" class="back">About (new)</a>
+    </nav>
+    <header>
+      <p class="eyebrow">Portfolio redesign &middot; Home page variations</p>
+      <h1>Four directions. Pick one.</h1>
+      <p class="sub">Each variation uses the <strong>same content</strong> &mdash; same six projects, same skills, same bio material &mdash; but a different layout, typography, color system, and motion language. Motion is tuned to each vibe.</p>
+    </header>
+
+    <div class="grid">
+      <!-- v1 Editorial -->
+      <a class="card" href="v1-editorial/index.html">
+        <div class="card-preview p-editorial">
+          <em>Douglas</em><br/>Tran
+        </div>
+        <div class="card-body">
+          <p class="card-label">V1 &middot; Editorial</p>
+          <h2>Magazine / quiet serif</h2>
+          <p>Asymmetric spreads, big italic serif display, numbered chapters, parallax on project art. Feels like a curated issue.</p>
+          <div class="card-links">
+            <a href="v1-editorial/index.html">View &rarr;</a>
+          </div>
+        </div>
+      </a>
+
+      <!-- v2 Maximalist -->
+      <a class="card" href="v2-maximalist/index.html">
+        <div class="card-preview p-maximalist">
+          ONE<br/><em>GUY,</em><br/>FULL STACK
+        </div>
+        <div class="card-body">
+          <p class="card-label">V2 &middot; Maximalist (dark / lilac)</p>
+          <h2>Loud &amp; scroll-driven</h2>
+          <p>Oversized display on near-black, single lilac accent. Infinite marquee, pinned horizontal project scroll, layered tiles, sticky CTA. Most GSAP-heavy.</p>
+          <div class="card-links">
+            <a href="v2-maximalist/index.html">View &rarr;</a>
+          </div>
+        </div>
+      </a>
+
+      <!-- v3 Brutalist -->
+      <a class="card" href="v3-brutalist/index.html">
+        <div class="card-preview p-brutalist">
+$ whoami<br/>&gt; douglas tran_<br/>$ ls<br/>./work ./skills<br/>./about ./contact
+        </div>
+        <div class="card-body">
+          <p class="card-label">V3 &middot; Brutalist / terminal</p>
+          <h2>Plain text, harsh, honest</h2>
+          <p>Monospace everywhere, terminal prompts, typing-cursor hero, glitch flickers on hover. Technical and no-nonsense.</p>
+          <div class="card-links">
+            <a href="v3-brutalist/index.html">View &rarr;</a>
+          </div>
+        </div>
+      </a>
+
+      <!-- v4 Minimal -->
+      <a class="card" href="v4-minimal/index.html">
+        <div class="card-preview p-minimal">
+          Douglas Tran
+        </div>
+        <div class="card-body">
+          <p class="card-label">V4 &middot; Minimal</p>
+          <h2>Whitespace &amp; light motion</h2>
+          <p>Warm off-white, generous spacing, single-column work list with padding-on-hover. Barely-there scroll reveals. Safest pick.</p>
+          <div class="card-links">
+            <a href="v4-minimal/index.html">View &rarr;</a>
+          </div>
+        </div>
+      </a>
+
+      <!-- v5 Dark -->
+      <a class="card" href="v5-dark/index.html">
+        <div class="card-preview p-dark">
+          Design that<br/><em>works.</em>
+        </div>
+        <div class="card-body">
+          <p class="card-label">V5 &middot; Dark (newest)</p>
+          <h2>Dark mode, one pop color</h2>
+          <p>Vintage grape base, beige accent. Big serif display, tight motion budget, no pinned horizontal scroll. Built from your feedback on V2.</p>
+          <div class="card-links">
+            <a href="v5-dark/index.html">View &rarr;</a>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="meta-row">
+      <span>Tip: review each full-screen, scroll all the way through, and check on mobile too.</span>
+    </div>
+  </div>
+</body>
+</html>

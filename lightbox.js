@@ -17,7 +17,10 @@
     '}' +
     '.lb-overlay.lb-visible img { transform:scale(1); }' +
     '.case-study .placeholder-img img,' +
-    '.case-study img { cursor:zoom-in; }';
+    '.case-study img,' +
+    '.cs-body .placeholder-img img,' +
+    '.cs-body img { cursor:zoom-in; transition:transform 0.3s ease; }' +
+    '.cs-body img:hover { transform:scale(1.01); }';
   document.head.appendChild(style);
 
   // Open lightbox
@@ -62,7 +65,7 @@
 
   // Attach click handlers to all case-study images
   document.addEventListener('click', function (e) {
-    var img = e.target.closest('.case-study img');
+    var img = e.target.closest('.case-study img, .cs-body img');
     if (img && img.src && !img.closest('.lb-overlay')) {
       e.preventDefault();
       openLightbox(img.src);
