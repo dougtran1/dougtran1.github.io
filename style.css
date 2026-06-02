@@ -212,13 +212,13 @@ a { color: inherit; text-decoration: none; }
   transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease;
 }
 .h-card:hover { transform: translateY(-8px) scale(1.02); border-color: var(--accent); }
-.h-card-art { background-size: cover; background-position: center; }
-.art-dragons { background: linear-gradient(135deg, #1a1022, #4a2f6b, #c4a7ff); }
-.art-hvac { background: linear-gradient(140deg, #16141d, #3f3358, #c4a7ff); }
-.art-saigons { background: linear-gradient(135deg, #2a1b3d, #5b3e8c, #d4b5ff); }
-.art-process { background: linear-gradient(160deg, #0a0a0c, #2e2840, #9e82d9); }
-.art-vsa { background: linear-gradient(135deg, #1c1425, #6b3e99, #c4a7ff); }
-.art-card-shop { background: linear-gradient(135deg, #1f1428, #7a3f5e, #d4a7c4); }
+.h-card-art { background-size: cover; background-position: center; background-repeat: no-repeat; }
+.art-dragons { background-color: #1a1022; background-image: url("images/thumbnails/dragons-roast.jpg"); }
+.art-hvac { background-color: #16141d; background-image: url("images/thumbnails/comfortfirst-hvac.jpg"); background-position: center top; }
+.art-saigons { background-color: #2a1b3d; background-image: url("images/thumbnails/saigons-corner.jpg"); background-position: center top; }
+.art-process { background-color: #050508; background-image: url("images/thumbnails/process-catalogue.jpg"); }
+.art-vsa { background-color: #1c1425; background-image: url("images/thumbnails/vsa-tet-recap.jpg"); }
+.art-card-shop { background-color: #1f1428; background-image: url("images/thumbnails/card-shop.jpg"); background-position: center top; }
 .h-card-meta { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
 .h-card-cat { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
 .h-card-meta h3 { font-family: var(--black); font-size: 32px; letter-spacing: -0.02em; }
