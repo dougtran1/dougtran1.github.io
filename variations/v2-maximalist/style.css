@@ -220,7 +220,22 @@ a { color: inherit; text-decoration: none; }
 .art-vsa { background-color: #1c1425; background-image: url("../../images/thumbnails/vsa-tet-recap.jpg"); }
 .art-card-shop { background-color: #1f1428; background-image: url("../../images/thumbnails/card-shop.jpg"); background-position: center top; }
 .h-card-meta { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+.h-card-tags { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
 .h-card-cat { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.h-card-ai {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 3px 8px;
+  border: 1px solid rgba(196, 167, 255, 0.42);
+  border-radius: 999px;
+  background: rgba(196, 167, 255, 0.1);
+  color: #d8cff2;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
 .h-card-meta h3 { font-family: var(--black); font-size: 32px; letter-spacing: -0.02em; }
 .h-card-meta p { font-size: 14px; color: #b8b6c2; line-height: 1.5; flex: 1; }
 .h-card-link { font-family: var(--mono); font-size: 13px; color: var(--ink); border-bottom: 1px solid var(--ink); align-self: flex-start; padding-bottom: 2px; }
