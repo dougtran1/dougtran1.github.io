@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" class="js"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Earned. Douglas Tran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="case-study.css">
+</head>
+<body>
+
+  <header class="cs-nav">
+    <a href="../index.html" class="cs-nav-mark">DOUG<span class="dot">.</span>TRAN</a>
+    <nav class="cs-nav-links">
+      <a href="../index.html#work">&larr; Work</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="cs-hero earned-hero">
+      <div class="cs-hero-inner">
+        <p class="section-label">Product Design / Full Stack</p>
+        <h1 class="cs-title">
+          <span class="line"><span class="word">EARNED.</span></span>
+        </h1>
+        <div class="cs-meta">
+          <div class="cs-meta-item">
+            <label>Role</label>
+            <span>Product Designer &amp; Developer</span>
+          </div>
+          <div class="cs-meta-item">
+            <label>Timeline</label>
+            <span>May 2026</span>
+          </div>
+          <div class="cs-meta-item">
+            <label>Type</label>
+            <span>Personal Product</span>
+          </div>
+          <div class="cs-meta-item meta-wide">
+            <label>Stack</label>
+            <span>Next.js, Supabase, TypeScript</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <article class="cs-body earned-case">
+      <p class="earned-lede" data-reveal>Earned is a goal tracker where rewards unlock only when two things are true: you can afford the reward, and you have earned it through measurable progress.</p>
+
+      <div class="earned-kpis earned-wide" data-reveal>
+        <div class="earned-kpi">
+          <span>2</span>
+          <p>Reward gates: savings and EXP</p>
+        </div>
+        <div class="earned-kpi">
+          <span>4</span>
+          <p>Core views: Today, Goals, Rewards, Trophies</p>
+        </div>
+        <div class="earned-kpi">
+          <span>16</span>
+          <p>Hosted Supabase migrations through V1</p>
+        </div>
+        <div class="earned-kpi">
+          <span>$0</span>
+          <p>Free-tier infrastructure target</p>
+        </div>
+      </div>
+
+      <figure class="earned-media earned-wide" data-reveal>
+        <img src="../images/earned/goals-desktop.png" alt="Earned Goals workspace showing the goal builder and active goals list">
+        <figcaption>Final Goals workspace after the V1 polish pass. The builder asks for a target unit and personal difficulty, then turns honest progress into EXP.</figcaption>
+      </figure>
+
+      <h2 data-reveal>The problem</h2>
+      <p data-reveal>Most goal apps track activity. Most budget apps track money. Earned sits in the emotional gap between the two: sometimes you can technically buy something, but it still does not feel earned.</p>
+      <p data-reveal>The product challenge was to make self-reward feel intentional without becoming punitive, over-gamified, or spreadsheet-heavy. The user needed a daily system that could answer one question quickly: <strong>what is my effort earning right now?</strong></p>
+
+      <h2 data-reveal>What I built</h2>
+      <p data-reveal>I shipped a V1 web app with auth, user-owned data, guided goal creation, reward focus switching, savings snapshots, EXP banking, claim logic, and a trophy archive.</p>
+
+      <ul data-reveal>
+        <li><strong>Today dashboard</strong> for active goals, recent EXP, consistency, and the focused reward.</li>
+        <li><strong>Goal builder</strong> with Fitness, Finance, and Reading pillars plus personal-difficulty EXP.</li>
+        <li><strong>Rewards workspace</strong> where savings handles affordability and EXP handles whether the reward was earned.</li>
+        <li><strong>Trophy room</strong> that preserves claim history, including price and EXP at claim time.</li>
+        <li><strong>Atomic Supabase RPCs</strong> for the core multi-write flows so progress, banking, claims, focus switching, and undo stay consistent.</li>
+      </ul>
+
+      <h2 data-reveal>Moodboarding</h2>
+      <p data-reveal>The moodboard pushed the product toward calm accountability: warm cream surfaces, soft cards, dark ink action areas, and pastel category color. I wanted it to feel more like a focused personal dashboard than a finance app or a fantasy game.</p>
+
+      <div class="earned-moodboard earned-wide" data-reveal>
+        <img src="../images/earned/moodboard-ui-01.jpg" alt="Moodboard reference with warm fitness dashboard cards">
+        <img src="../images/earned/moodboard-ui-02.jpg" alt="Moodboard reference with dark sidebar and soft pastel dashboard cards">
+        <img src="../images/earned/moodboard-ui-03.jpg" alt="Moodboard reference with cream canvas and pastel dashboard panels">
+        <img src="../images/earned/moodboard-ui-04.jpg" alt="Moodboard reference with rounded editorial dashboard blocks">
+      </div>
+
+      <h2 data-reveal>Prototype path</h2>
+      <p data-reveal>I explored multiple visual directions before locking the combined v2 direction: warm canvas, quiet navigation, soft data surfaces, and a dark active reward card that gives the product its center of gravity.</p>
+
+      <figure class="earned-media earned-wide" data-reveal>
+        <img src="../images/earned/prototype-combined-v2.png" alt="Earned selected visual prototype showing the Today dashboard and active reward card">
+        <figcaption>The selected mockup direction. It established the calendar, active reward sidebar, recent EXP, and category color system.</figcaption>
+      </figure>
+
+      <div class="earned-process-grid earned-wide" data-reveal>
+        <div class="earned-process-card">
+          <img src="../images/earned/goal-builder-prototype.png" alt="Goal builder prototype with target slider and generated goal preview">
+          <div class="earned-process-copy">
+            <h3>Goal builder prototype</h3>
+            <p>The builder started as a guided target-tuning tool. The important idea survived into the app: users should define the unit of effort, then see the EXP impact before adding the goal.</p>
+          </div>
+        </div>
+        <div class="earned-process-card">
+          <img src="../images/earned/planner-prototype.png" alt="Planner experiment prototype with calendar and weekly milestones">
+          <div class="earned-process-copy">
+            <h3>Planner experiment</h3>
+            <p>I tested a calendar-first planner model, then removed it from V1. It had a stronger planning story, but too much up-front friction for a daily self-accountability tool.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 data-reveal>Obstacles and fixes</h2>
+      <p data-reveal>The hardest parts were not visual. They were product mechanics: how to make the system fair, honest, and resilient when progress, money, and rewards all affect each other.</p>
+
+      <div class="earned-fix-list" data-reveal>
+        <div class="earned-fix">
+          <h3>EXP fairness</h3>
+          <p>Early overlapping goals could overpay EXP. I first tested metric caps and progress baselines, but real-use QA showed they punished honest extra effort. The fix was simpler: one completion unit, one personal difficulty rating, repeatable EXP when the user crosses full units.</p>
+        </div>
+        <div class="earned-fix">
+          <h3>Payday drift</h3>
+          <p>Finance goals originally allowed generic windows, which could drift away from a real biweekly paycheck cycle after closing a period. The fix was a known payday anchor that realigns spending caps to 14-day cycles.</p>
+        </div>
+        <div class="earned-fix">
+          <h3>Partial writes</h3>
+          <p>Progress logging, EXP banking, reward claims, focus switching, archiving, and undo all touch multiple tables. I moved the risky flows into Postgres RPCs so each operation succeeds or fails as one unit.</p>
+        </div>
+        <div class="earned-fix">
+          <h3>Responsive density</h3>
+          <p>The first Goals layout was too dense and some lists clipped. I moved creation into its own Goals workspace, added scroll boundaries, and fixed mobile/tablet media rules after screenshot QA.</p>
+        </div>
+      </div>
+
+      <h2 data-reveal>The system model</h2>
+      <p data-reveal>EXP is not a shared wallet. It banks into the active reward, and switching focus preserves each reward's progress. This made the interaction feel more intentional: choosing a focus decides what today's effort counts toward.</p>
+
+      <div class="earned-flow earned-wide" data-reveal>log honest progress
+   -> Supabase RPC validates ownership and period
+   -> completed units award personal-difficulty EXP
+   -> EXP banks into the active reward ledger
+   -> savings + EXP gates decide claimability
+   -> claim writes a trophy snapshot</div>
+
+      <h2 data-reveal>Final product QA</h2>
+      <p data-reveal>The V1 QA loop used a hosted Supabase project and a disposable authenticated account. I tested auth bootstrap, repeated goal completions, payday alignment, finance close, undo, savings snapshots, reward focus switching, reward claim, trophy archive, goal and reward archiving, dashboard summaries, mobile dark mode, and sign out.</p>
+
+      <div class="earned-mobile-wrap earned-wide" data-reveal>
+        <figure class="earned-media">
+          <img src="../images/earned/rewards-desktop.png" alt="Earned Rewards workspace with active reward, savings snapshot, and wishlist">
+          <figcaption>Rewards workspace. The dark active reward card makes the two gates visible: savings and EXP.</figcaption>
+        </figure>
+        <figure class="earned-media earned-mobile">
+          <img src="../images/earned/today-mobile-dark.png" alt="Earned mobile dark mode dashboard">
+          <figcaption>Mobile dark-mode QA captured the long-scroll state, not just the ideal desktop screen.</figcaption>
+        </figure>
+      </div>
+
+      <h2 data-reveal>Outcome</h2>
+      <p data-reveal>Earned reached a complete, verified V1: private GitHub repo, hosted Supabase schema through migration <strong>0016</strong>, generated database types, magic-link auth, real user-owned data, and the full reward loop working end to end.</p>
+      <figure class="earned-media earned-wide" data-reveal>
+        <img src="../images/earned/trophies-desktop.png" alt="Earned Trophy Room showing claimed rewards and archived progress">
+        <figcaption>The Trophy Room closes the loop by preserving claim history, price, and EXP context after a reward is earned.</figcaption>
+      </figure>
+      <p data-reveal>Verification passed with <strong>lint, typecheck, build, and hosted migration checks</strong>. The next product checkpoint is deployment and a short real-use pass with my own account, followed by claim celebration motion and richer history views.</p>
+
+      <div class="earned-quote" data-reveal>
+        The most important design decision was knowing when to simplify. The stronger product was not the one with the cleverest EXP economy. It was the one that made honest effort easy to log and easy to trust.
+      </div>
+    </article>
+  </main>
+
+  <footer class="cs-footer">
+    <div class="cs-footer-huge">
+      <span class="line">LET'S</span>
+      <span class="line italic">BUILD</span>
+      <span class="line">SOMETHING.</span>
+    </div>
+    <div class="cs-footer-row">
+      <a href="mailto:DougTran1@gmail.com" class="cs-footer-mail">DougTran1@gmail.com</a>
+      <div class="cs-footer-links">
+        <a href="https://linkedin.com/in/douglastran1" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/dougtran1" target="_blank" rel="noopener">GitHub</a>
+        <a href="../Douglas Tran Resume.docx.pdf" target="_blank" rel="noopener">Resume</a>
+      </div>
+    </div>
+    <div class="cs-footer-meta">
+      <span>&copy; 2026 Douglas Tran</span>
+      <span>Dallas &middot; TX</span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", () => {
+      const words = gsap.utils.toArray(".cs-title .word");
+      gsap.set(words, { yPercent: 110 });
+      gsap.set([".section-label", ".cs-meta"], { autoAlpha: 0, y: 12 });
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      tl.to(words, { yPercent: 0, duration: 0.75, stagger: 0.08 }, 0);
+      tl.to(".section-label", { autoAlpha: 1, y: 0, duration: 0.5 }, 0);
+      tl.to(".cs-meta", { autoAlpha: 1, y: 0, duration: 0.5 }, 0.35);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
+    document.querySelectorAll("[data-reveal]").forEach(el => observer.observe(el));
+  </script>
+
+  <script src="../lightbox.js"></script>
+  <script src="../editor-bar.js"></script>
+  <script src="page-transition.js" defer></script>
+
+</body></html>

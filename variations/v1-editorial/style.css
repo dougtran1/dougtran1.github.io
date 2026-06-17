@@ -244,6 +244,8 @@ main {
 }
 .art-dragons { background: linear-gradient(135deg, #5b1c18 0%, #8a2f28 40%, #dfa870 100%); }
 .art-dragons::after { background: radial-gradient(circle at 30% 40%, rgba(255,223,181,0.35), transparent 50%), linear-gradient(135deg, #5b1c18, #8a2f28); }
+.art-earned { background: #0d0a08; }
+.art-earned::after { background-image: url("../../images/thumbnails/earned-dark-dashboard.png"); background-position: center; background-repeat: no-repeat; background-size: contain; inset: 0; transform: none; }
 .art-hvac { background: linear-gradient(140deg, #2a4858, #4b8ca0 70%, #9cc8d3); }
 .art-hvac::after { background: linear-gradient(140deg, #2a4858, #4b8ca0); }
 .art-saigons { background: linear-gradient(135deg, #6b2f1a, #c97145 60%, #f0b483); }

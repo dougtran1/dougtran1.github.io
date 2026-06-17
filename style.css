@@ -219,6 +219,7 @@ a { color: inherit; text-decoration: none; }
 .art-process { background-color: #050508; background-image: url("images/thumbnails/process-catalogue.jpg"); }
 .art-vsa { background-color: #1c1425; background-image: url("images/thumbnails/vsa-tet-recap.jpg"); }
 .art-card-shop { background-color: #1f1428; background-image: url("images/thumbnails/card-shop.jpg"); background-position: center top; }
+.art-earned { background-color: #0d0a08; background-image: url("images/thumbnails/earned-dark-dashboard.png"); background-position: center; background-size: contain; }
 .h-card-meta { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
 .h-card-tags { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
 .h-card-cat { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
