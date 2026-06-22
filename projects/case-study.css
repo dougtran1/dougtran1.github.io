@@ -458,6 +458,95 @@ a { color: inherit; text-decoration: none; }
   padding: 22px 24px;
 }
 
+/* Card Shop case study */
+.cardshop-hero {
+  min-height: clamp(720px, 82vh, 900px);
+}
+.cardshop-lede {
+  color: var(--ink);
+  font-size: clamp(20px, 2.4vw, 26px);
+  line-height: 1.45;
+  margin-bottom: 36px;
+}
+.cardshop-wide {
+  left: 50%;
+  position: relative;
+  translate: -50% 0;
+  width: min(1120px, calc(100vw - 64px));
+}
+.cardshop-kpis {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 44px;
+}
+.cardshop-kpi {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+}
+.cardshop-kpi span {
+  color: var(--accent);
+  display: block;
+  font-family: var(--black);
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.cardshop-kpi p {
+  color: var(--ink-dim);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.45;
+  margin: 0;
+  text-transform: uppercase;
+}
+.cardshop-media {
+  background: #0d1018;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin: 36px 0;
+  overflow: hidden;
+}
+.cardshop-media img {
+  display: block;
+  width: 100%;
+}
+.cardshop-media figcaption {
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 12px 14px;
+}
+.cardshop-shot-pair,
+.cardshop-admin-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+  margin: 28px 0 44px;
+}
+.cardshop-shot-pair .cardshop-media,
+.cardshop-admin-grid .cardshop-media {
+  margin: 0;
+}
+.cardshop-flow {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  color: var(--ink-dim);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.9;
+  margin: 24px 0 36px;
+  overflow-x: auto;
+  padding: 22px 24px;
+  white-space: pre;
+}
+
 /* Reveal helpers */
 [data-reveal] {
   opacity: 0;
@@ -574,4 +663,21 @@ body.page-exit {
   .earned-kpis { gap: 10px; }
   .earned-moodboard { grid-template-columns: 1fr 1fr; }
   .earned-mobile { justify-self: start; max-width: 220px; }
+  .cardshop-hero { min-height: 760px; }
+  .cardshop-lede {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  .cardshop-wide {
+    left: auto;
+    margin-left: 0;
+    translate: none;
+    width: 100%;
+  }
+  .cardshop-kpis,
+  .cardshop-shot-pair,
+  .cardshop-admin-grid {
+    grid-template-columns: 1fr;
+  }
+  .cardshop-kpis { gap: 10px; }
 }

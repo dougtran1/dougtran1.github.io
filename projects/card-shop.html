@@ -18,7 +18,7 @@
   </header>
 
   <main>
-    <section class="cs-hero">
+    <section class="cs-hero cardshop-hero">
       <div class="cs-hero-inner">
         <p class="section-label">Full Stack / Web</p>
         <h1 class="cs-title">
@@ -32,7 +32,7 @@
           </div>
           <div class="cs-meta-item">
             <label>Timeline</label>
-            <span>Two Days</span>
+            <span>Two-Day Sprint</span>
           </div>
           <div class="cs-meta-item">
             <label>Type</label>
@@ -46,62 +46,133 @@
       </div>
     </section>
 
-    <article class="cs-body">
+    <article class="cs-body cardshop-case">
+      <p class="cardshop-lede" data-reveal>Card Shop is a full-stack inventory and reservation demo for local trading card stores. Customers can see what is actually in stock before visiting, and staff can manage cards, holds, pricing, and team access from one product surface.</p>
+
+      <div class="cardshop-kpis cardshop-wide" data-reveal>
+        <div class="cardshop-kpi">
+          <span>3</span>
+          <p>Supported games: Pokemon, MTG, One Piece</p>
+        </div>
+        <div class="cardshop-kpi">
+          <span>1,581</span>
+          <p>Seeded inventory units for demo QA</p>
+        </div>
+        <div class="cardshop-kpi">
+          <span>3</span>
+          <p>Demo roles: customer, staff, owner</p>
+        </div>
+        <div class="cardshop-kpi">
+          <span>$0</span>
+          <p>Monthly infrastructure target</p>
+        </div>
+      </div>
+
+      <figure class="cardshop-media cardshop-wide" data-reveal>
+        <img src="../images/card-shop/customer-browse.png" alt="Card Shop Pokemon browse page with filters and card inventory grid">
+        <figcaption>The customer browse view makes the local shop inventory searchable before someone ever walks in. Filters, conditions, card images, and prices are visible at the point of decision.</figcaption>
+      </figure>
+
       <h2 data-reveal>The problem</h2>
-      <p data-reveal>Customers at physical card shops waste time digging through bulk boxes looking for specific cards. It takes up table space meant for tournaments and pushes sales toward online competitors like TCGPlayer. Shop owners lose foot traffic <em>and</em> revenue.</p>
-      <p data-reveal>The pitch behind this build: a public inventory site that lets customers browse what the shop actually has, reserve cards online, and pick them up in store within a 48-hour hold window.</p>
+      <p data-reveal>Physical card shops often have the inventory customers want, but discovery still happens through binders, bulk boxes, and staff memory. That creates a bad loop: customers spend time digging, tournament tables get crowded, and comparison shopping shifts attention to online marketplaces.</p>
+      <p data-reveal>The product opportunity was to make the local shop feel as searchable as an online store while still protecting the in-person pickup model that drives visits, conversations, and repeat business.</p>
+
+      <h2 data-reveal>Customer flow</h2>
+      <p data-reveal>The customer side is built around a simple promise: find the card, reserve it, pick it up. No payment flow, no shipping flow, no account required for a basic hold.</p>
+
+      <div class="cardshop-shot-pair cardshop-wide" data-reveal>
+        <figure class="cardshop-media">
+          <img src="../images/card-shop/customer-card-detail.png" alt="Charizard ex detail page showing conditions, live stock, and add to cart buttons">
+          <figcaption>Card detail view with market price, condition-level quantity, and reserve actions.</figcaption>
+        </figure>
+        <figure class="cardshop-media">
+          <img src="../images/card-shop/customer-checkout.png" alt="Reserve Cards checkout page with pickup hold form and order summary">
+          <figcaption>The checkout is intentionally a hold form. The customer reserves the card, then pays in store.</figcaption>
+        </figure>
+      </div>
+
+      <figure class="cardshop-media cardshop-wide" data-reveal>
+        <img src="../images/card-shop/customer-wishlist.png" alt="Customer wishlist with watched cards and restock notification controls">
+        <figcaption>Signed-in customers can watch out-of-stock or interesting cards and keep restock alerts on. This turns a one-time search into a reason to come back.</figcaption>
+      </figure>
+
+      <h2 data-reveal>Staff and owner tools</h2>
+      <p data-reveal>The admin side had to feel practical for a small shop owner, not like a generic ecommerce back office. The core workflows are inventory maintenance, reservation management, pricing control, and role-based access.</p>
+
+      <figure class="cardshop-media cardshop-wide" data-reveal>
+        <img src="../images/card-shop/owner-dashboard.png" alt="Owner dashboard with inventory value, low stock items, active holds, and stock alerts">
+        <figcaption>The owner dashboard gives a quick read on stock count, inventory value, active holds, and low-stock cards.</figcaption>
+      </figure>
+
+      <div class="cardshop-admin-grid cardshop-wide" data-reveal>
+        <figure class="cardshop-media">
+          <img src="../images/card-shop/staff-inventory.png" alt="Admin inventory table showing cards, games, sets, conditions, quantities, and prices">
+          <figcaption>Staff inventory table across Pokemon, MTG, and One Piece TCG.</figcaption>
+        </figure>
+        <figure class="cardshop-media">
+          <img src="../images/card-shop/staff-manual-entry.png" alt="Manual card entry form filled out for a One Piece TCG card">
+          <figcaption>Manual entry covers cards that do not have reliable external API support.</figcaption>
+        </figure>
+        <figure class="cardshop-media">
+          <img src="../images/card-shop/staff-holds.png" alt="Admin holds screen with reservation records, customer contact, statuses, and item tables">
+          <figcaption>Hold management shows status, customer contact, totals, and reserved card details.</figcaption>
+        </figure>
+        <figure class="cardshop-media">
+          <img src="../images/card-shop/owner-pricing.png" alt="Owner pricing table with market price, markup fields, override fields, and shop price">
+          <figcaption>Pricing supports market-based markup and manual overrides per inventory row.</figcaption>
+        </figure>
+      </div>
+
+      <figure class="cardshop-media cardshop-wide" data-reveal>
+        <img src="../images/card-shop/owner-staff.png" alt="Owner staff management page with staff, owner, and customer role controls">
+        <figcaption>Owner-only staff management keeps admin access explicit. Staff can manage inventory and holds; owners can control team access.</figcaption>
+      </figure>
 
       <h2 data-reveal>What I built</h2>
-      <p data-reveal>A full production-feature stack on free-tier services. Three card games supported (Pokemon, MTG, One Piece), customer accounts with wishlists and stock notifications, an admin panel for inventory + analytics, and an atomic hold system that prevents double-reservations.</p>
+      <p data-reveal>A production-shaped demo on free-tier services: public browsing, card detail pages, a reservation cart, customer wishlist, staff inventory management, holds dashboard, pricing controls, analytics scaffolding, and owner-only staff management.</p>
 
       <ul data-reveal>
-        <li><strong>Browse + filter</strong> by game, set, rarity, condition, price range</li>
-        <li><strong>Reserve cards</strong> for in-store pickup with a 48-hour hold timer</li>
-        <li><strong>Customer accounts</strong> — wishlist, order history, "notify me when in stock"</li>
-        <li><strong>Admin panel</strong> — add cards via API search (PokeTCG, Scryfall), CSV bulk import, manual entry, dynamic pricing</li>
-        <li><strong>Analytics dashboard</strong> — inventory value, popular cards, traffic, with role-based access</li>
-        <li><strong>Light/dark mode</strong>, real-time stock notifications via WebSocket</li>
+        <li><strong>Browse and filter</strong> by game, set, rarity, condition, and price context.</li>
+        <li><strong>Reserve cards</strong> for in-store pickup with a 48-hour hold window.</li>
+        <li><strong>Customer accounts</strong> with wishlist and restock notification controls.</li>
+        <li><strong>Inventory tools</strong> for external API lookup, CSV import, quick entry, and manual One Piece entries.</li>
+        <li><strong>Owner controls</strong> for pricing, role management, analytics, and store settings.</li>
       </ul>
 
       <h2 data-reveal>Tech stack</h2>
-      <p data-reveal>Constraint: everything had to run on free tiers. The whole stack costs $0/month and still supports the full feature set.</p>
+      <p data-reveal>Constraint: the full demo needed to run on free tiers so it would be credible for the kind of local business it is pitched to.</p>
 
       <div class="tech-tags" data-reveal>
         <span class="tech-tag">Next.js 16</span>
-        <span class="tech-tag">Supabase</span>
-        <span class="tech-tag">Resend</span>
+        <span class="tech-tag">TypeScript</span>
+        <span class="tech-tag">Supabase Auth</span>
+        <span class="tech-tag">Postgres RPCs</span>
+        <span class="tech-tag">Row-Level Security</span>
         <span class="tech-tag">Tailwind CSS v4</span>
         <span class="tech-tag">Recharts</span>
         <span class="tech-tag">Vercel</span>
-        <span class="tech-tag">PokeTCG API</span>
-        <span class="tech-tag">Scryfall API</span>
       </div>
 
       <h2 data-reveal>How holds work</h2>
-      <p data-reveal>The hold system was the trickiest piece. If two customers click "reserve" on the same card at the same moment, only one should win. I used a Postgres transaction inside a Supabase RPC so the inventory check and hold insert happen atomically. A scheduled cron job clears expired holds back to available stock every 5 minutes.</p>
+      <p data-reveal>The risky part of the product is inventory integrity. If two people reserve the same last copy at the same time, only one should win. I used a Supabase RPC so checking stock, creating the hold, and decrementing inventory happen as one database operation.</p>
 
-      <div class="flow-diagram" data-reveal>customer clicks reserve
-   ↓
-RPC: lock row, check stock, insert hold (atomic)
-   ↓
-hold expires after 48h  →  cron releases stock
-        ↓
-   pickup confirmed  →  hold marked complete</div>
+      <div class="cardshop-flow cardshop-wide" data-reveal>customer selects condition
+   -> checkout creates hold request
+   -> Postgres RPC locks inventory row
+   -> stock decrements and hold item writes together
+   -> expiry job returns stock when a hold is not picked up</div>
 
-      <h2 data-reveal>The admin side</h2>
-      <p data-reveal>Shop owners aren't going to manually type 500 cards into a database. The admin panel uses the PokeTCG and Scryfall APIs so a staff member can search "Charizard ex" and one click auto-fills the image, set, rarity, and current market price. Pricing supports either auto market price + markup percent or a manual override per card.</p>
-      <p data-reveal>For bulk inventory adds (e.g. opening a new shop), a CSV import takes a spreadsheet of set codes and pulls everything from the APIs in one batch.</p>
+      <h2 data-reveal>Role model</h2>
+      <p data-reveal>The demo includes three seeded accounts because the product has three audiences. Customers manage wishlist and reservations. Staff manage inventory and holds. Owners get the higher-risk controls: pricing, settings, analytics, and staff access.</p>
+      <p data-reveal>That separation is enforced with Supabase Auth, route protection, and row-level security policies instead of just hiding links in the interface.</p>
 
-      <h2 data-reveal>Database design</h2>
-      <p data-reveal>10 tables behind the scenes — cards, holds, users, wishlists, notifications, audit logs. Row-level security policies in Supabase enforce who can see what (customers only see their own holds; staff see everyone's; owners see analytics).</p>
-
-      <h2 data-reveal>What's deliberately out of scope</h2>
-      <p data-reveal>No payments. Holds are reservation-only — pay in store. This was a feature, not a limitation: the goal is to drive foot traffic, not to compete with TCGPlayer's checkout. Skipping Stripe also kept the project on the free tier.</p>
-      <p data-reveal>Phone-based card scanning (point camera at a card to add it) is a separate future project. Computer vision and a mobile app are out of scope for a website demo.</p>
+      <h2 data-reveal>Deliberate constraints</h2>
+      <p data-reveal>No Stripe. No shipping. No marketplace checkout. That was intentional: the business goal is to help local shops capture online intent and turn it into an in-store visit.</p>
+      <p data-reveal>Phone-based card scanning is also out of scope for this build. It is a strong future concept, but it would be a separate computer-vision and mobile workflow. This version proves the inventory, hold, and owner-ops foundation first.</p>
 
       <h2 data-reveal>Outcome</h2>
-      <p data-reveal>Shipped end-to-end in two days. Lives at <a href="https://card-shop-db2nkp70z-dougtran1s-projects.vercel.app/demo" target="_blank" rel="noopener" style="color:var(--accent);">the live demo</a> with three seeded accounts (owner, staff, customer) so anyone can poke around the full feature set without signing up.</p>
-      <p data-reveal>The piece I'm proudest of: a feature-complete production app — auth, RLS, atomic transactions, real-time notifications, analytics, dynamic pricing — running on $0/month of infrastructure. It's the demo I show to small business owners to make the case that custom software is reachable for them.</p>
+      <p data-reveal>The project became a pitchable small-business product demo: realistic seeded data, three demo roles, public browsing, authenticated customer features, staff operations, owner controls, and a live walkthrough page.</p>
+      <p data-reveal>It is the kind of portfolio piece I want in front of recruiters and local business owners because it shows both sides of the work: a polished customer experience and the operational system behind it.</p>
     </article>
   </main>
 
@@ -139,10 +210,10 @@ hold expires after 48h  →  cron releases stock
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
+        if (entry.isIntersecting) entry.target.classList.add("visible");
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
-    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+    }, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
+    document.querySelectorAll("[data-reveal]").forEach(el => observer.observe(el));
   </script>
 
   <script src="../lightbox.js"></script>
