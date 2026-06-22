@@ -472,7 +472,7 @@ a { color: inherit; text-decoration: none; }
   left: 50%;
   position: relative;
   translate: -50% 0;
-  width: min(1120px, calc(100vw - 64px));
+  width: min(980px, calc(100vw - 64px));
 }
 .cardshop-kpis {
   display: grid;
@@ -506,12 +506,17 @@ a { color: inherit; text-decoration: none; }
   background: #0d1018;
   border: 1px solid var(--line);
   border-radius: 8px;
-  margin: 36px 0;
+  margin: 32px 0 44px;
   overflow: hidden;
 }
 .cardshop-media img {
   display: block;
   width: 100%;
+}
+.cardshop-media.cardshop-wide img {
+  height: clamp(360px, 44vw, 520px);
+  object-fit: cover;
+  object-position: top center;
 }
 .cardshop-media figcaption {
   border-top: 1px solid var(--line);
@@ -523,14 +528,21 @@ a { color: inherit; text-decoration: none; }
 }
 .cardshop-shot-pair,
 .cardshop-admin-grid {
+  align-items: start;
   display: grid;
   gap: 16px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   margin: 28px 0 44px;
 }
 .cardshop-shot-pair .cardshop-media,
 .cardshop-admin-grid .cardshop-media {
   margin: 0;
+}
+.cardshop-shot-pair .cardshop-media img,
+.cardshop-admin-grid .cardshop-media img {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top center;
 }
 .cardshop-flow {
   background: var(--bg-2);
@@ -673,6 +685,12 @@ body.page-exit {
     margin-left: 0;
     translate: none;
     width: 100%;
+  }
+  .cardshop-media {
+    margin: 28px 0 36px;
+  }
+  .cardshop-media.cardshop-wide img {
+    height: auto;
   }
   .cardshop-kpis,
   .cardshop-shot-pair,
